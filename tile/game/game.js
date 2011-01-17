@@ -39,6 +39,9 @@ YUI.add("game", function (Y) {
             case this.get("controls.1.down"):
                 this._player1.setAttrs({ direction: Y.Tile.Tile.DOWN, moving: true });
                 break;
+            case this.get("controls.1.bomb"):
+
+                break;
             case this.get("controls.2.left"):
                 this._player2.setAttrs({ direction: Y.Tile.Tile.LEFT, moving: true });
                 break;
@@ -50,6 +53,9 @@ YUI.add("game", function (Y) {
                 break;
             case this.get("controls.2.down"):
                 this._player2.setAttrs({ direction: Y.Tile.Tile.DOWN, moving: true });
+                break;
+            case this.get("controls.2.bomb"):
+
                 break;
             }
         },

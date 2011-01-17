@@ -17,8 +17,8 @@ YUI.add("tile", function (Y) {
 
             this.after("rowChange", this._afterRowChange);
             this.after("colChange", this._afterColChange);
-            this.after("horizontalOffsetChange", this._afterHorizontalOffsetChange);
-            this.after("verticalOffsetChange", this._afterVerticalOffsetChange);
+            this.on("horizontalOffsetChange", this._onHorizontalOffsetChange);
+            this.on("verticalOffsetChange", this._onVerticalOffsetChange);
         },
 
         _afterRowChange: function (event) {
@@ -29,7 +29,7 @@ YUI.add("tile", function (Y) {
             this.fire("engage", [this.get("row"), event.newVal]);
         },
 
-        _afterHorizontalOffsetChange: function (event) {
+        _onHorizontalOffsetChange: function (event) {
             if (event.newVal !== 0) {
                 this.set("verticalOffset", 0);
             }
@@ -38,13 +38,15 @@ YUI.add("tile", function (Y) {
             } else if (event.newVal < 0 && this.get("direction") === LEFT) {
                 this.fire("touch", [this.get("row") - 1, this.get("col")]);
             } else if (event.newVal > 1) {
-                this.setAttrs({ horizontalOffset: event.newVal - 2, row: this.get("row") + 1 });
-            } else if (event.newVal < 1) {
-                this.setAttrs({ horizontalOffset: event.newVal + 2, row: this.get("row") - 1 });
+                event.newVal -= 2;
+                this.set("col", this.get("col") + 1);
+            } else if (event.newVal < -1) {
+                event.newVal += 2;
+                this.set("col", this.get("col") - 1);
             }
         },
 
-        _afterVerticalOffsetChange: function (event) {
+        _onVerticalOffsetChange: function (event) {
             if (event.newVal !== 0) {
                 this.set("horizontalOffset", 0);
             }
@@ -53,9 +55,11 @@ YUI.add("tile", function (Y) {
             } else if (event.newVal < 0 && this.get("direction") === UP) {
                 this.fire("touch", [this.get("row"), this.get("col") - 1]);
             } else if (event.newVal > 1) {
-                this.setAttrs({ verticalOffset: event.newVal - 2, col: this.get("col") + 1 });
-            } else if (event.newVal < 1) {
-                this.setAttrs({ verticalOffset: event.newVal + 2, col: this.get("col") - 1 });
+                event.newVal -= 2;
+                this.set("row", this.get("row") + 1);
+            } else if (event.newVal < -1) {
+                event.newVal += 2;
+                this.set("row", this.get("row") - 1);
             }
         },
 
@@ -172,11 +176,13 @@ YUI.add("tile", function (Y) {
             },
 
             row: {
-                validator: Y.Lang.isNumber
+                validator: Y.Lang.isNumber,
+                value: 0
             },
 
             col: {
-                validator: Y.Lang.isNumber
+                validator: Y.Lang.isNumber,
+                value: 0
             },
 
             position: {
@@ -189,11 +195,13 @@ YUI.add("tile", function (Y) {
             },
 
             horizontalOffset: {
-                validator: Y.Lang.isNumber
+                validator: Y.Lang.isNumber,
+                value: 0
             },
 
             verticalOffset: {
-                validator: Y.Lang.isNumber
+                validator: Y.Lang.isNumber,
+                value: 0
             },
 
             offset: {
@@ -211,7 +219,8 @@ YUI.add("tile", function (Y) {
             },
 
             moving: {
-                validator: Y.Lang.isBoolean
+                validator: Y.Lang.isBoolean,
+                value: false
             },
 
             direction: {

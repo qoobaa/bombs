@@ -1,5 +1,10 @@
 YUI.add("tile", function (Y) {
 
+    var UP = { direction: "up" },
+        RIGHT = { direction: "right" },
+        DOWN =  { direction: "down" },
+        LEFT = { direction: "left" };
+
     var Tile = Y.Base.create("tile", Y.Base, [], {
 
         initializer: function () {
@@ -14,7 +19,6 @@ YUI.add("tile", function (Y) {
             this.after("colChange", this._afterColChange);
             this.after("horizontalOffsetChange", this._afterHorizontalOffsetChange);
             this.after("verticalOffsetChange", this._afterVerticalOffsetChange);
-            this.after("animationDirectionChange", this._afterAnimationDirectionChange);
         },
 
         _afterRowChange: function (event) {
@@ -29,9 +33,9 @@ YUI.add("tile", function (Y) {
             if (event.newVal !== 0) {
                 this.set("verticalOffset", 0);
             }
-            if (event.newVal > 0 && this.get("direction") === Tile.RIGHT) {
+            if (event.newVal > 0 && this.get("direction") === RIGHT) {
                 this.fire("touch", [this.get("row") + 1, this.get("col")]);
-            } else if (event.newVal < 0 && this.get("direction") === Tile.LEFT) {
+            } else if (event.newVal < 0 && this.get("direction") === LEFT) {
                 this.fire("touch", [this.get("row") - 1, this.get("col")]);
             } else if (event.newVal > 1) {
                 this.setAttrs({ horizontalOffset: event.newVal - 2, row: this.get("row") + 1 });
@@ -44,9 +48,9 @@ YUI.add("tile", function (Y) {
             if (event.newVal !== 0) {
                 this.set("horizontalOffset", 0);
             }
-            if (event.newVal > 0 && this.get("direction") === Tile.DOWN) {
+            if (event.newVal > 0 && this.get("direction") === DOWN) {
                 this.fire("touch", [this.get("row"), this.get("col") + 1]);
-            } else if (event.newVal < 0 && this.get("direction") === Tile.UP) {
+            } else if (event.newVal < 0 && this.get("direction") === UP) {
                 this.fire("touch", [this.get("row"), this.get("col") - 1]);
             } else if (event.newVal > 1) {
                 this.setAttrs({ verticalOffset: event.newVal - 2, col: this.get("col") + 1 });
@@ -55,12 +59,8 @@ YUI.add("tile", function (Y) {
             }
         },
 
-        _afterAnimationDirectionChange: function (event) {
-            this.reset("animationFrame");
-        },
-
         act: function () {
-            this.set("animationFrame", this.get("animationFrame") + 1);
+            this.set("time", this.get("time") + 1);
             if (this.get("moving")) {
                 this._move();
             }
@@ -76,28 +76,28 @@ YUI.add("tile", function (Y) {
 
         _move: function () {
             switch (this.get("direction")) {
-            case Tile.UP:
+            case UP:
                 if (this._isMovedHorizontally()) {
                     this._stepCenter();
                 } else {
                     this._stepUp();
                 }
                 break;
-            case Tile.RIGHT:
+            case RIGHT:
                 if (this._isMovedVertically()) {
                     this._stepCenter();
                 } else {
                     this._stepRight();
                 }
                 break;
-            case Tile.DOWN:
+            case DOWN:
                 if (this._isMovedHorizontally()) {
                     this._stepCenter();
                 } else {
                     this._stepDown();
                 }
                 break;
-            case Tile.LEFT:
+            case LEFT:
                 if (this._isMovedVertically()) {
                     this._stepCenter();
                 } else {
@@ -120,19 +120,19 @@ YUI.add("tile", function (Y) {
         },
 
         _stepUp: function () {
-            this.setAttrs({ animationDirection: Tile.UP, verticalOffset: this.get("verticalOffset") - this.get("speed") });
+            this.setAttrs({ animationDirection: UP, verticalOffset: this.get("verticalOffset") - this.get("speed") });
         },
 
         _stepRight: function () {
-            this.setAttrs({ animationDirection: Tile.RIGHT, horizontalOffset: this.get("horizontalOffset") + this.get("speed") });
+            this.setAttrs({ animationDirection: RIGHT, horizontalOffset: this.get("horizontalOffset") + this.get("speed") });
         },
 
         _stepDown: function () {
-            this.setAttrs({ animationDirection: Tile.DOWN, verticalOffset: this.get("verticalOffset") + this.get("speed") });
+            this.setAttrs({ animationDirection: DOWN, verticalOffset: this.get("verticalOffset") + this.get("speed") });
         },
 
         _stepLeft: function () {
-            this.setAttrs({ animationDirection: Tile.LEFT, horizontalOffset: this.get("horizontalOffset") - this.get("speed") });
+            this.setAttrs({ animationDirection: LEFT, horizontalOffset: this.get("horizontalOffset") - this.get("speed") });
         },
 
         stop: function () {
@@ -160,7 +160,7 @@ YUI.add("tile", function (Y) {
         // OTHERS
 
         _validateDirection: function (direction) {
-            return Y.indexOf([Tile.UP, Tile.RIGHT, Tile.DOWN, Tile.LEFT], direction) !== -1;
+            return Y.Array.indexOf([UP, RIGHT, DOWN, LEFT], direction) !== -1;
         }
 
     }, {
@@ -206,7 +206,8 @@ YUI.add("tile", function (Y) {
             },
 
             speed: {
-                validator: Y.Lang.isNumber
+                validator: Y.Lang.isNumber,
+                value: 0.1
             },
 
             moving: {
@@ -214,27 +215,29 @@ YUI.add("tile", function (Y) {
             },
 
             direction: {
-                validator: "_validateDirection"
+                validator: "_validateDirection",
+                value: DOWN
             },
 
             animationDirection: {
-                validator: "_validateDirection"
+                validator: "_validateDirection",
+                value: DOWN
             },
 
-            animationFrame: {
+            time: {
                 value: 0,
                 validator: Y.Lang.isNumber
             }
 
         },
 
-        UP:    {},
-        RIGHT: {},
-        DOWN:  {},
-        LEFT:  {}
+        UP:    UP,
+        RIGHT: RIGHT,
+        DOWN:  DOWN,
+        LEFT:  LEFT
 
     });
 
     Y.namespace("Tile").Tile = Tile;
 
-}, "0", { requires: ["base-build"] });
+}, "0", { requires: ["base-build", "collection"] });

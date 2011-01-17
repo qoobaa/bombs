@@ -6,7 +6,7 @@ YUI({
             modules: {
                 tile: {
                     path: "tile/tile.js",
-                    requires: ["base-build"]
+                    requires: ["base-build", "collection"]
                 },
                 board: {
                     path: "board/board.js",
@@ -16,9 +16,13 @@ YUI({
                     path: "sprite/sprite.js",
                     requires: ["base-build"]
                 },
+                player: {
+                    path: "player/player.js",
+                    requires: ["base-build", "tile", "sprite"]
+                },
                 game: {
                     path: "game/game.js",
-                    requires: ["widget", "base-build", "sprite"]
+                    requires: ["widget", "base-build", "player"]
                 }
             }
         }

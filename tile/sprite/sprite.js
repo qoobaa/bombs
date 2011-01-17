@@ -27,7 +27,7 @@ YUI.add("sprite", function (Y) {
                 dx,                                                // dx
                 dy,                                                // dy
                 this.get("frameWidth"),                            // dw
-                this.get("frameWidth")                             // dh
+                this.get("frameHeight")                            // dh
             );
 
             if (this.get("playing")) {

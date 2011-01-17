@@ -10,7 +10,7 @@ YUI({
                 },
                 board: {
                     path: "board/board.js",
-                    requires: ["base-build"]
+                    requires: ["base-build", "arraylist"]
                 },
                 sprite: {
                     path: "sprite/sprite.js",
@@ -22,7 +22,7 @@ YUI({
                 },
                 game: {
                     path: "game/game.js",
-                    requires: ["widget", "base-build", "player"]
+                    requires: ["widget", "base-build", "player", "board"]
                 }
             }
         }

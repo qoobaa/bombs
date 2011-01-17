@@ -3,23 +3,51 @@ YUI.add("board", function (Y) {
     var Board = Y.Base.create("board", Y.Base, [], {
 
         initializer: function () {
+            this._items = [];
+            // this.on("*:rowChange", this._onTileRowChange);
+        },
 
+        add: function (tile) {
+            tile.addTarget(this);
+            this._items.push(tile);
+            this._sortTiles();
+        },
+
+        act: function () {
+            this.each(function (tile) {
+                tile.act();
+            });
+            this._sortTiles();
+        },
+
+        _sortTiles: function () {
+            this._items.sort(function (a, b) {
+                if (a.get("row") === b.get("row")) {
+                    return a.get("verticalOffset") > b.get("verticalOffset");
+                } else {
+                    return a.get("row") > b.get("row");
+                }
+            });
+        },
+
+        draw: function (context) {
+            this.each(function (tile) {
+                tile.draw(context);
+            });
         }
 
     }, {
 
         ATTRS: {
 
-            tiles: {
-                validator: Y.Lang.isArray
-            },
-
             height: {
-                validator: Y.Lang.isNumber
+                validator: Y.Lang.isNumber,
+                value: 2
             },
 
             width: {
-                validator: Y.Lang.isNumber
+                validator: Y.Lang.isNumber,
+                value: 2
             },
 
             size: {
@@ -35,6 +63,8 @@ YUI.add("board", function (Y) {
 
     });
 
+    Y.augment(Board, Y.ArrayList);
+
     Y.namespace("Tile").Board = Board;
 
-}, "0", { requires: ["base-build"] });
+}, "0", { requires: ["base-build", "arraylist"] });

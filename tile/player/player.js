@@ -8,7 +8,8 @@ YUI.add("player", function (Y) {
                 playing: false,
                 image: "/images/player" + this.get("number") + ".png",
                 speed: 0.5,
-                frameHeight: 48
+                frameHeight: 48,
+                row: 2
             });
 
             this.after("movingChange", this._afterMovingChange);
@@ -39,8 +40,8 @@ YUI.add("player", function (Y) {
         draw: function (context) {
             this._sprite.draw(
                 context,
-                this.get("col") * 32 + this.get("horizontalOffset") * 16,
-                this.get("row") * 32 + this.get("verticalOffset") * 16
+                this.get("col") * 32 + this.get("horizontalOffset") * 32 / 2,
+                this.get("row") * 32 + this.get("verticalOffset") * 32 / 2 - 16
             );
         }
 

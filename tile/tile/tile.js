@@ -8,13 +8,12 @@ YUI.add("tile", function (Y) {
     var Tile = Y.Base.create("tile", Y.Base, [], {
 
         initializer: function () {
-            if (this.get("board")) {
-                this.addTarget(this.get("board"));
-            }
-
             this.publish("touch");
             this.publish("engage");
+            this.publish("rowChange");
+            this.publish("colChange");
 
+            this.after("boardChange", this._afterBoardChange);
             this.after("rowChange", this._afterRowChange);
             this.after("colChange", this._afterColChange);
             this.on("horizontalOffsetChange", this._onHorizontalOffsetChange);
@@ -37,7 +36,8 @@ YUI.add("tile", function (Y) {
                 this.fire("touch", [this.get("row") + 1, this.get("col")]);
             } else if (event.newVal < 0 && this.get("direction") === LEFT) {
                 this.fire("touch", [this.get("row") - 1, this.get("col")]);
-            } else if (event.newVal > 1) {
+            }
+            if (event.newVal > 1) {
                 event.newVal -= 2;
                 this.set("col", this.get("col") + 1);
             } else if (event.newVal < -1) {
@@ -54,7 +54,8 @@ YUI.add("tile", function (Y) {
                 this.fire("touch", [this.get("row"), this.get("col") + 1]);
             } else if (event.newVal < 0 && this.get("direction") === UP) {
                 this.fire("touch", [this.get("row"), this.get("col") - 1]);
-            } else if (event.newVal > 1) {
+            }
+            if (event.newVal > 1) {
                 event.newVal -= 2;
                 this.set("row", this.get("row") + 1);
             } else if (event.newVal < -1) {
@@ -170,10 +171,6 @@ YUI.add("tile", function (Y) {
     }, {
 
         ATTRS: {
-
-            board: {
-
-            },
 
             row: {
                 validator: Y.Lang.isNumber,

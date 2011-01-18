@@ -3,8 +3,8 @@ YUI.add("game", function (Y) {
     var Game = Y.Base.create("game", Y.Widget, [], {
 
         initializer: function () {
-            this._player1 = new Y.Tile.Player({ number: 1 });
-            this._player2 = new Y.Tile.Player({ number: 2 });
+            this._player1 = new Y.Tile.Player({ number: 1, row: 1, col: 1 });
+            this._player2 = new Y.Tile.Player({ number: 2, row: 1, col: 2 });
             this._board = new Y.Tile.Board();
             this._board.add(this._player1);
             this._board.add(this._player2);
@@ -158,7 +158,7 @@ YUI.add("game", function (Y) {
 
             interval: {
                 validator: Y.Lang.isNumber,
-                value: 33
+                value: 50
             },
 
             controls: {

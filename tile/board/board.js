@@ -4,7 +4,63 @@ YUI.add("board", function (Y) {
 
         initializer: function () {
             this._items = [];
-            // this.on("*:rowChange", this._onTileRowChange);
+
+            this.on("*:rowChange", this._onTileRowChange);
+            this.on("*:colChange", this._onTileColChange);
+
+            this.on("*:horizontalOffsetChange", this._onTileHorizontalOffsetChange);
+            this.on("*:verticalOffsetChange", this._onTileVerticalOffsetChange);
+
+            this._createBorders();
+        },
+
+        _onTileRowChange: function (event) {
+            var tile = event.target;
+
+            Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row")), "onEngage", event);
+        },
+
+        _onTileColChange: function (event) {
+            var tile = event.target;
+
+            Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row")), "onEngage", event);
+        },
+
+        _onTileHorizontalOffsetChange: function (event) {
+            var tile = event.target;
+
+            if (event.newVal > 0 && tile.get("direction") === Y.Tile.Tile.RIGHT) {
+                Y.Array.invoke(this._getTiles(tile.get("col") + 1, tile.get("row")), "onTouch", event);
+            } else if (event.newVal < 0 && tile.get("direction") === Y.Tile.Tile.LEFT) {
+                Y.Array.invoke(this._getTiles(tile.get("col") - 1, tile.get("row")), "onTouch", event);
+            }
+        },
+
+        _onTileVerticalOffsetChange: function (event) {
+            var tile = event.target;
+
+            if (event.newVal > 0 && tile.get("direction") === Y.Tile.Tile.DOWN) {
+                Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row") + 1), "onTouch", event);
+            } else if (event.newVal < 0 && tile.get("direction") === Y.Tile.Tile.UP) {
+                Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row") - 1), "onTouch", event);
+            }
+        },
+
+        _createBorders: function () {
+            for (var col = 0; col < this.get("width"); col++) {
+                this.add(new Y.Tile.HardWall({ row: 0, col: col }));
+                this.add(new Y.Tile.HardWall({ row: this.get("height") - 1, col: col }));
+            }
+            for (var row = 1; row < this.get("height") - 1; row++) {
+                this.add(new Y.Tile.HardWall({ row: row, col: 0 }));
+                this.add(new Y.Tile.HardWall({ row: row, col: this.get("width") - 1 }));
+            }
+        },
+
+        _getTiles: function (col, row) {
+            return Y.Array.filter(this._items, function (tile) {
+                return tile.get("col") === col && tile.get("row") === row;
+            });
         },
 
         add: function (tile) {
@@ -42,12 +98,12 @@ YUI.add("board", function (Y) {
 
             height: {
                 validator: Y.Lang.isNumber,
-                value: 2
+                value: 15
             },
 
             width: {
                 validator: Y.Lang.isNumber,
-                value: 2
+                value: 20
             },
 
             size: {
@@ -67,4 +123,4 @@ YUI.add("board", function (Y) {
 
     Y.namespace("Tile").Board = Board;
 
-}, "0", { requires: ["base-build", "arraylist"] });
+}, "0", { requires: ["base-build", "arraylist", "collection", "hardwall"] });

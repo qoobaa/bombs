@@ -1,15 +1,13 @@
 YUI.add("tile", function (Y) {
 
-    var UP = { direction: "up" },
+    var UP =    { direction: "up" },
         RIGHT = { direction: "right" },
         DOWN =  { direction: "down" },
-        LEFT = { direction: "left" };
+        LEFT =  { direction: "left" };
 
     var Tile = Y.Base.create("tile", Y.Base, [], {
 
         initializer: function () {
-            this.publish("touch");
-            this.publish("engage");
             this.publish("rowChange");
             this.publish("colChange");
 
@@ -20,22 +18,9 @@ YUI.add("tile", function (Y) {
             this.on("verticalOffsetChange", this._onVerticalOffsetChange);
         },
 
-        _afterRowChange: function (event) {
-            this.fire("engage", [event.newVal, this.get("col")]);
-        },
-
-        _afterColChange: function (event) {
-            this.fire("engage", [this.get("row"), event.newVal]);
-        },
-
         _onHorizontalOffsetChange: function (event) {
             if (event.newVal !== 0) {
                 this.set("verticalOffset", 0);
-            }
-            if (event.newVal > 0 && this.get("direction") === RIGHT) {
-                this.fire("touch", [this.get("row") + 1, this.get("col")]);
-            } else if (event.newVal < 0 && this.get("direction") === LEFT) {
-                this.fire("touch", [this.get("row") - 1, this.get("col")]);
             }
             if (event.newVal > 1) {
                 event.newVal -= 2;
@@ -49,11 +34,6 @@ YUI.add("tile", function (Y) {
         _onVerticalOffsetChange: function (event) {
             if (event.newVal !== 0) {
                 this.set("horizontalOffset", 0);
-            }
-            if (event.newVal > 0 && this.get("direction") === DOWN) {
-                this.fire("touch", [this.get("row"), this.get("col") + 1]);
-            } else if (event.newVal < 0 && this.get("direction") === UP) {
-                this.fire("touch", [this.get("row"), this.get("col") - 1]);
             }
             if (event.newVal > 1) {
                 event.newVal -= 2;
@@ -143,26 +123,6 @@ YUI.add("tile", function (Y) {
         stop: function () {
             this.setAttrs({ moving: false });
         },
-
-        // INTERACTION - replace by events (defaultFn)?
-
-        touch: function (tile) {
-            // DO NOTHING
-        },
-
-        touchedBy: function (tile) {
-            // DO NOTHING
-        },
-
-        engage: function (tile) {
-            // DO NOTHING
-        },
-
-        engagedBy: function (tile) {
-            // DO NOTHING
-        },
-
-        // OTHERS
 
         _validateDirection: function (direction) {
             return Y.Array.indexOf([UP, RIGHT, DOWN, LEFT], direction) !== -1;

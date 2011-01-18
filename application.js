@@ -18,6 +18,10 @@ YUI({
                 },
                 player: {
                     path: "player/player.js",
+                    requires: ["base-build", "tile", "sprite", "bomb"]
+                },
+                bomb: {
+                    path: "bomb/bomb.js",
                     requires: ["base-build", "tile", "sprite"]
                 },
                 hardwall: {

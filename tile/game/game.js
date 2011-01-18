@@ -40,7 +40,7 @@ YUI.add("game", function (Y) {
                 this._player1.setAttrs({ direction: Y.Tile.Tile.DOWN, moving: true });
                 break;
             case this.get("controls.1.bomb"):
-
+                this._player1.bomb();
                 break;
             case this.get("controls.2.left"):
                 this._player2.setAttrs({ direction: Y.Tile.Tile.LEFT, moving: true });
@@ -55,7 +55,7 @@ YUI.add("game", function (Y) {
                 this._player2.setAttrs({ direction: Y.Tile.Tile.DOWN, moving: true });
                 break;
             case this.get("controls.2.bomb"):
-
+                this._player2.bomb();
                 break;
             }
         },
@@ -158,7 +158,7 @@ YUI.add("game", function (Y) {
 
             interval: {
                 validator: Y.Lang.isNumber,
-                value: 50
+                value: 33
             },
 
             controls: {

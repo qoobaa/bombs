@@ -11,6 +11,8 @@ YUI.add("board", function (Y) {
             this.on("*:horizontalOffsetChange", this._onTileHorizontalOffsetChange);
             this.on("*:verticalOffsetChange", this._onTileVerticalOffsetChange);
 
+            this.on("player:bombsChange", this._onPlayerBombsChange);
+
             this._createBorders();
         },
 
@@ -43,6 +45,19 @@ YUI.add("board", function (Y) {
                 Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row") + 1), "onTouch", event);
             } else if (event.newVal < 0 && tile.get("direction") === Y.Tile.Tile.UP) {
                 Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row") - 1), "onTouch", event);
+            }
+        },
+
+        _onPlayerBombsChange: function (event) {
+            var player = event.target,
+                otherBomb = Y.Array.find(this._getTiles(player.get("col"), player.get("row")), function (tile) {
+                    return tile instanceof Y.Tile.Bomb;
+                });
+
+            if (otherBomb) {
+                event.preventDefault();
+            } else {
+                this.add(new Y.Tile.Bomb({ col: player.get("col"), row: player.get("row"), player: player }));
             }
         },
 

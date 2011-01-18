@@ -1,9 +1,9 @@
 YUI.add("tile", function (Y) {
 
-    var UP =    { direction: "up" },
+    var UP =    { direction: "up"    },
         RIGHT = { direction: "right" },
-        DOWN =  { direction: "down" },
-        LEFT =  { direction: "left" };
+        DOWN =  { direction: "down"  },
+        LEFT =  { direction: "left"  };
 
     var Tile = Y.Base.create("tile", Y.Base, [], {
 
@@ -11,11 +11,11 @@ YUI.add("tile", function (Y) {
             this.publish("rowChange");
             this.publish("colChange");
 
-            this.after("boardChange", this._afterBoardChange);
             this.after("rowChange", this._afterRowChange);
             this.after("colChange", this._afterColChange);
             this.on("horizontalOffsetChange", this._onHorizontalOffsetChange);
             this.on("verticalOffsetChange", this._onVerticalOffsetChange);
+            this.after("timeChange", this._afterTimeChange);
         },
 
         _onHorizontalOffsetChange: function (event) {
@@ -41,6 +41,12 @@ YUI.add("tile", function (Y) {
             } else if (event.newVal < -1) {
                 event.newVal += 2;
                 this.set("row", this.get("row") - 1);
+            }
+        },
+
+        _afterTimeChange: function (event) {
+            if (Y.Lang.isValue(this.get("ttl")) && event.newVal >= this.get("ttl")) {
+
             }
         },
 
@@ -193,6 +199,10 @@ YUI.add("tile", function (Y) {
             time: {
                 value: 0,
                 validator: Y.Lang.isNumber
+            },
+
+            ttl: {
+
             }
 
         },

@@ -12,8 +12,16 @@ YUI.add("player", function (Y) {
                 row: 2
             });
 
+            this.publish("bombsChange");
+
             this.after("movingChange", this._afterMovingChange);
             this.after("animationDirectionChange", this._afterAnimationDirectionChange);
+        },
+
+        bomb: function () {
+            if (this.get("bombs") > 0) {
+                this.set("bombs", this.get("bombs") - 1);
+            }
         },
 
         _afterMovingChange: function (event) {
@@ -51,6 +59,10 @@ YUI.add("player", function (Y) {
 
             number: {
                 value: 1
+            },
+
+            bombs: {
+                value: 5
             }
 
         }
@@ -59,4 +71,4 @@ YUI.add("player", function (Y) {
 
     Y.namespace("Tile").Player = Player;
 
-}, "0", { requires: ["base-build", "tile", "sprite"] });
+}, "0", { requires: ["base-build", "tile", "sprite", "bomb"] });

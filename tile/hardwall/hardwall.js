@@ -4,6 +4,7 @@ YUI.add("hardwall", function (Y) {
 
         initializer: function () {
             this._sprite = new Y.Tile.Sprite({ playing: false, image: "/images/hardwall.png" });
+            this.on("touch", this._onTouch);
         },
 
         draw: function (context) {
@@ -14,8 +15,8 @@ YUI.add("hardwall", function (Y) {
             );
         },
 
-        onTouch: function (event) {
-            event.preventDefault();
+        _onTouch: function (event) {
+            event.originalEvent.preventDefault();
         }
 
     }, {

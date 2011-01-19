@@ -19,22 +19,22 @@ YUI.add("board", function (Y) {
         _onTileRowChange: function (event) {
             var tile = event.target;
 
-            Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row")), "onEngage", event);
+            Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row")), "fire", "engage", { originalEvent: event });
         },
 
         _onTileColChange: function (event) {
             var tile = event.target;
 
-            Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row")), "onEngage", event);
+            Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row")), "fire", "engage", { originalEvent: event });
         },
 
         _onTileHorizontalOffsetChange: function (event) {
             var tile = event.target;
 
             if (event.newVal > 0 && tile.get("direction") === Y.Tile.Tile.RIGHT) {
-                Y.Array.invoke(this._getTiles(tile.get("col") + 1, tile.get("row")), "onTouch", event);
+                Y.Array.invoke(this._getTiles(tile.get("col") + 1, tile.get("row")), "fire", "touch", { originalEvent: event });
             } else if (event.newVal < 0 && tile.get("direction") === Y.Tile.Tile.LEFT) {
-                Y.Array.invoke(this._getTiles(tile.get("col") - 1, tile.get("row")), "onTouch", event);
+                Y.Array.invoke(this._getTiles(tile.get("col") - 1, tile.get("row")), "fire", "touch", { originalEvent: event });
             }
         },
 
@@ -42,9 +42,9 @@ YUI.add("board", function (Y) {
             var tile = event.target;
 
             if (event.newVal > 0 && tile.get("direction") === Y.Tile.Tile.DOWN) {
-                Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row") + 1), "onTouch", event);
+                Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row") + 1), "fire", "touch", { originalEvent: event });
             } else if (event.newVal < 0 && tile.get("direction") === Y.Tile.Tile.UP) {
-                Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row") - 1), "onTouch", event);
+                Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row") - 1), "fire", "touch", { originalEvent: event });
             }
         },
 

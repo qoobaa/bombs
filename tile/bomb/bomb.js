@@ -9,6 +9,7 @@ YUI.add("bomb", function (Y) {
                 frames: 4,
                 speed: 0.5
             });
+            this.on("touch", this._onTouch);
         },
 
         draw: function (context) {
@@ -19,8 +20,8 @@ YUI.add("bomb", function (Y) {
             );
         },
 
-        onTouch: function (event) {
-            event.preventDefault();
+        _onTouch: function (event) {
+            event.originalEvent.preventDefault();
         }
 
     }, {

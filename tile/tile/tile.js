@@ -13,8 +13,10 @@ YUI.add("tile", function (Y) {
 
             this.after("rowChange", this._afterRowChange);
             this.after("colChange", this._afterColChange);
+
             this.on("horizontalOffsetChange", this._onHorizontalOffsetChange);
             this.on("verticalOffsetChange", this._onVerticalOffsetChange);
+
             this.after("timeChange", this._afterTimeChange);
         },
 

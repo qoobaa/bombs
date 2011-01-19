@@ -62,7 +62,13 @@ YUI.add("player", function (Y) {
             },
 
             bombs: {
-                value: 5
+                value: 5,
+                validator: Y.Lang.isNumber
+            },
+
+            power: {
+                value: 10,
+                validator: Y.Lang.isNumber
             }
 
         }

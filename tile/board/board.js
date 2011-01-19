@@ -10,7 +10,7 @@ YUI.add("board", function (Y) {
             this.on("*:horizontalOffsetChange", this._onTileHorizontalOffsetChange);
             this.on("*:verticalOffsetChange", this._onTileVerticalOffsetChange);
             this.after("*:aliveChange", this._afterAliveChange);
-            this.after("player:bombsChange", this._afterPlayerBombsChange);
+            this.on("player:bombsChange", this._onPlayerBombsChange);
             this.after("bomb:aliveChange", this._afterBombAliveChange);
 
             this._createBorders();
@@ -56,7 +56,7 @@ YUI.add("board", function (Y) {
             }
         },
 
-        _afterPlayerBombsChange: function (event) {
+        _onPlayerBombsChange: function (event) {
             var player = event.target,
                 otherBomb = Y.Array.find(this._getTiles(player.get("col"), player.get("row")), function (tile) {
                     return tile instanceof Y.Tile.Bomb;
@@ -76,7 +76,7 @@ YUI.add("board", function (Y) {
 
             if (!event.newVal) {
                 this.remove(bomb);
-                this._explode(bomb.get("col"), bomb.get("row"), 3);
+                this._explode(bomb.get("col"), bomb.get("row"), bomb.get("player").get("power"));
             }
         },
 
@@ -142,6 +142,7 @@ YUI.add("board", function (Y) {
             tile.addTarget(this);
             this._items.push(tile);
             this._sortTiles();
+            // Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row")), "fire", "engage");
         },
 
         act: function () {

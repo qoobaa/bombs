@@ -5,7 +5,7 @@ YUI.add("hardwall", function (Y) {
         initializer: function () {
             this._sprite = new Y.Tile.Sprite({
                 playing: false,
-                image: "/images/hardwall.png"
+                image: "images/hardwall.png"
             });
             this.on("touch", this._onTouch);
             this.on("aliveChange", this._onAliveChange);

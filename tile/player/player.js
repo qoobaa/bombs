@@ -16,6 +16,7 @@ YUI.add("player", function (Y) {
 
             this.after("movingChange", this._afterMovingChange);
             this.after("animationDirectionChange", this._afterAnimationDirectionChange);
+            this.on("touch", this._onTouch);
         },
 
         bomb: function () {
@@ -51,6 +52,12 @@ YUI.add("player", function (Y) {
                 this.get("col") * 32 + Math.round(this.get("horizontalOffset") * 32 / 2),
                 this.get("row") * 32 + Math.round(this.get("verticalOffset") * 32 / 2 - 16)
             );
+        },
+
+        _onTouch: function (event) {
+            if (event.source instanceof Y.Tile.Bomb) {
+                event.originalEvent.preventDefault();
+            }
         }
 
     }, {
@@ -67,7 +74,7 @@ YUI.add("player", function (Y) {
             },
 
             power: {
-                value: 10,
+                value: 5,
                 validator: Y.Lang.isNumber
             },
 

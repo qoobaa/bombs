@@ -128,6 +128,14 @@ YUI.add("board", function (Y) {
                 this.add(new Y.Tile.HardWall({ row: row, col: 0 }));
                 this.add(new Y.Tile.HardWall({ row: row, col: this.get("width") - 1 }));
             }
+            for (var col = 3; col < this.get("width") - 3; col++) {
+                this.add(new Y.Tile.SoftWall({ row: 3, col: col }));
+                this.add(new Y.Tile.SoftWall({ row: this.get("height") - 4, col: col }));
+            }
+            for (var row = 3; row < this.get("height") - 4; row++) {
+                this.add(new Y.Tile.SoftWall({ row: row, col: 3 }));
+                this.add(new Y.Tile.SoftWall({ row: row, col: this.get("width") - 4 }));
+            }
         },
 
         _getTiles: function (col, row) {

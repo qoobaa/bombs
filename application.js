@@ -2,7 +2,7 @@ YUI({
     filter: "raw",
     groups: {
         tile: {
-            base: "/tile/",
+            base: "tile/",
             modules: {
                 tile: {
                     path: "tile/tile.js",

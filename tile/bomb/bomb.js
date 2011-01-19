@@ -5,7 +5,7 @@ YUI.add("bomb", function (Y) {
         initializer: function () {
             this._sprite = new Y.Tile.Sprite({
                 playing: true,
-                image: "/images/bomb.png",
+                image: "images/bomb.png",
                 frames: 4,
                 speed: 0.5
             });
@@ -25,6 +25,9 @@ YUI.add("bomb", function (Y) {
 
         _onTouch: function (event) {
             event.originalEvent.preventDefault();
+            if (event.source instanceof Y.Tile.Player) {
+                this.setAttrs({ speed: event.source.get("speed"), direction: event.source.get("direction"), moving: true });
+            }
         },
 
         draw: function (context) {

@@ -6,7 +6,7 @@ YUI.add("explosion", function (Y) {
             this._sprite = new Y.Tile.Sprite({
                 playing: true,
                 looping: false,
-                image: "/images/explosion.png",
+                image: "images/explosion.png",
                 frames: 4,
                 speed: 0.25
             });
@@ -54,7 +54,7 @@ YUI.add("explosion", function (Y) {
         },
 
         _onEngage: function (event) {
-            event.originalEvent.target.set("alive", false);
+            event.source.set("alive", false);
         }
 
     }, {

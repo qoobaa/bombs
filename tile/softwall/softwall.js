@@ -8,7 +8,7 @@ YUI.add("softwall", function (Y) {
                 looping: false,
                 frames: 6,
                 speed: 0.5,
-                image: "/images/softwall.png"
+                image: "images/softwall.png"
             });
             this.on("touch", this._onTouch);
             this.on("aliveChange", this._onAliveChange);
@@ -41,12 +41,6 @@ YUI.add("softwall", function (Y) {
 
         _onTouch: function (event) {
             event.originalEvent.preventDefault();
-        }
-
-    }, {
-
-        ATTRS: {
-
         }
 
     });

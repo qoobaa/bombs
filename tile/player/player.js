@@ -6,7 +6,7 @@ YUI.add("player", function (Y) {
             this._sprite = new Y.Tile.Sprite({
                 frames: 8,
                 playing: false,
-                image: "/images/player" + this.get("number") + ".png",
+                image: "images/player" + this.get("number") + ".png",
                 speed: 0.5,
                 frameHeight: 48,
                 row: 2
@@ -69,6 +69,10 @@ YUI.add("player", function (Y) {
             power: {
                 value: 10,
                 validator: Y.Lang.isNumber
+            },
+
+            speed: {
+                value: 0.2
             }
 
         }

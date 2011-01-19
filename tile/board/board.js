@@ -1,10 +1,8 @@
 YUI.add("board", function (Y) {
 
-    var Board = Y.Base.create("board", Y.Base, [], {
+    var Board = Y.Base.create("board", Y.Base, [Y.ArrayList], {
 
         initializer: function () {
-            this._items = [];
-
             this.on("*:rowChange", this._onTileRowChange);
             this.on("*:colChange", this._onTileColChange);
             this.on("*:horizontalOffsetChange", this._onTileHorizontalOffsetChange);
@@ -19,22 +17,22 @@ YUI.add("board", function (Y) {
         _onTileRowChange: function (event) {
             var tile = event.target;
 
-            Y.Array.invoke(this._getTiles(tile.get("col"), event.newVal), "fire", "engage", { originalEvent: event });
+            Y.Array.invoke(this._getTiles(tile.get("col"), event.newVal), "fire", "engage", { originalEvent: event, source: tile });
         },
 
         _onTileColChange: function (event) {
             var tile = event.target;
 
-            Y.Array.invoke(this._getTiles(event.newVal, tile.get("row")), "fire", "engage", { originalEvent: event });
+            Y.Array.invoke(this._getTiles(event.newVal, tile.get("row")), "fire", "engage", { originalEvent: event, source: tile });
         },
 
         _onTileHorizontalOffsetChange: function (event) {
             var tile = event.target;
 
             if (event.newVal > 0 && tile.get("direction") === Y.Tile.Tile.RIGHT) {
-                Y.Array.invoke(this._getTiles(tile.get("col") + 1, tile.get("row")), "fire", "touch", { originalEvent: event });
+                Y.Array.invoke(this._getTiles(tile.get("col") + 1, tile.get("row")), "fire", "touch", { originalEvent: event, source: tile });
             } else if (event.newVal < 0 && tile.get("direction") === Y.Tile.Tile.LEFT) {
-                Y.Array.invoke(this._getTiles(tile.get("col") - 1, tile.get("row")), "fire", "touch", { originalEvent: event });
+                Y.Array.invoke(this._getTiles(tile.get("col") - 1, tile.get("row")), "fire", "touch", { originalEvent: event, source: tile });
             }
         },
 
@@ -42,9 +40,9 @@ YUI.add("board", function (Y) {
             var tile = event.target;
 
             if (event.newVal > 0 && tile.get("direction") === Y.Tile.Tile.DOWN) {
-                Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row") + 1), "fire", "touch", { originalEvent: event });
+                Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row") + 1), "fire", "touch", { originalEvent: event, source: tile });
             } else if (event.newVal < 0 && tile.get("direction") === Y.Tile.Tile.UP) {
-                Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row") - 1), "fire", "touch", { originalEvent: event });
+                Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row") - 1), "fire", "touch", { originalEvent: event, source: tile });
             }
         },
 
@@ -140,9 +138,16 @@ YUI.add("board", function (Y) {
 
         add: function (tile) {
             tile.addTarget(this);
-            this._items.push(tile);
-            this._sortTiles();
-            // Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row")), "fire", "engage");
+            Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row")), "fire", "engage", { source: tile });
+            if (tile.get("alive")) {
+                Y.ArrayList.prototype.add.apply(this, arguments);
+                this._sortTiles();
+            }
+        },
+
+        remove: function (tile) {
+            tile.removeTarget(this);
+            Y.ArrayList.prototype.remove.apply(this, arguments);
         },
 
         act: function () {
@@ -194,8 +199,6 @@ YUI.add("board", function (Y) {
         }
 
     });
-
-    Y.augment(Board, Y.ArrayList);
 
     Y.namespace("Tile").Board = Board;
 

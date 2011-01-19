@@ -10,7 +10,7 @@ YUI({
                 },
                 board: {
                     path: "board/board.js",
-                    requires: ["base-build", "arraylist", "collection","hardwall"]
+                    requires: ["base-build", "arraylist", "collection", "hardwall", "explosion"]
                 },
                 sprite: {
                     path: "sprite/sprite.js",
@@ -26,6 +26,10 @@ YUI({
                 },
                 hardwall: {
                     path: "hardwall/hardwall.js",
+                    requires: ["base-build", "tile", "sprite"]
+                },
+                explosion: {
+                    path: "explosion/explosion.js",
                     requires: ["base-build", "tile", "sprite"]
                 },
                 game: {

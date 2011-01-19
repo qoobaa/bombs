@@ -8,15 +8,8 @@ YUI.add("tile", function (Y) {
     var Tile = Y.Base.create("tile", Y.Base, [], {
 
         initializer: function () {
-            this.publish("rowChange");
-            this.publish("colChange");
-
-            this.after("rowChange", this._afterRowChange);
-            this.after("colChange", this._afterColChange);
-
             this.on("horizontalOffsetChange", this._onHorizontalOffsetChange);
             this.on("verticalOffsetChange", this._onVerticalOffsetChange);
-
             this.after("timeChange", this._afterTimeChange);
         },
 
@@ -48,7 +41,7 @@ YUI.add("tile", function (Y) {
 
         _afterTimeChange: function (event) {
             if (Y.Lang.isValue(this.get("ttl")) && event.newVal >= this.get("ttl")) {
-
+                this.set("alive", false);
             }
         },
 
@@ -204,7 +197,12 @@ YUI.add("tile", function (Y) {
             },
 
             ttl: {
+                value: undefined
+            },
 
+            alive: {
+                validator: Y.Lang.isBoolean,
+                value: true
             }
 
         },

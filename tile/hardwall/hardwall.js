@@ -5,13 +5,18 @@ YUI.add("hardwall", function (Y) {
         initializer: function () {
             this._sprite = new Y.Tile.Sprite({ playing: false, image: "/images/hardwall.png" });
             this.on("touch", this._onTouch);
+            this.on("aliveChange", this._onAliveChange);
+        },
+
+        _onAliveChange: function (event) {
+            event.preventDefault();
         },
 
         draw: function (context) {
             this._sprite.draw(
                 context,
-                this.get("col") * 32 + this.get("horizontalOffset") * 32 / 2,
-                this.get("row") * 32 + this.get("verticalOffset") * 32 / 2
+                this.get("col") * 32 + Math.round(this.get("horizontalOffset") * 32 / 2),
+                this.get("row") * 32 + Math.round(this.get("verticalOffset") * 32 / 2)
             );
         },
 

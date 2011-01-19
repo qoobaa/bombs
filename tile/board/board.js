@@ -7,11 +7,11 @@ YUI.add("board", function (Y) {
 
             this.on("*:rowChange", this._onTileRowChange);
             this.on("*:colChange", this._onTileColChange);
-
             this.on("*:horizontalOffsetChange", this._onTileHorizontalOffsetChange);
             this.on("*:verticalOffsetChange", this._onTileVerticalOffsetChange);
-
-            this.on("player:bombsChange", this._onPlayerBombsChange);
+            this.after("*:aliveChange", this._afterAliveChange);
+            this.after("player:bombsChange", this._afterPlayerBombsChange);
+            this.after("bomb:aliveChange", this._afterBombAliveChange);
 
             this._createBorders();
         },
@@ -19,13 +19,13 @@ YUI.add("board", function (Y) {
         _onTileRowChange: function (event) {
             var tile = event.target;
 
-            Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row")), "fire", "engage", { originalEvent: event });
+            Y.Array.invoke(this._getTiles(tile.get("col"), event.newVal), "fire", "engage", { originalEvent: event });
         },
 
         _onTileColChange: function (event) {
             var tile = event.target;
 
-            Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row")), "fire", "engage", { originalEvent: event });
+            Y.Array.invoke(this._getTiles(event.newVal, tile.get("row")), "fire", "engage", { originalEvent: event });
         },
 
         _onTileHorizontalOffsetChange: function (event) {
@@ -48,17 +48,77 @@ YUI.add("board", function (Y) {
             }
         },
 
-        _onPlayerBombsChange: function (event) {
+        _afterAliveChange: function (event) {
+            var tile = event.target;
+
+            if (!event.newVal) {
+                this.remove(tile);
+            }
+        },
+
+        _afterPlayerBombsChange: function (event) {
             var player = event.target,
                 otherBomb = Y.Array.find(this._getTiles(player.get("col"), player.get("row")), function (tile) {
                     return tile instanceof Y.Tile.Bomb;
                 });
 
-            if (otherBomb) {
-                event.preventDefault();
-            } else {
-                this.add(new Y.Tile.Bomb({ col: player.get("col"), row: player.get("row"), player: player }));
+            if (event.prevVal > event.newVal) {
+                if (otherBomb) {
+                    event.preventDefault();
+                } else {
+                    this.add(new Y.Tile.Bomb({ col: player.get("col"), row: player.get("row"), player: player }));
+                }
             }
+        },
+
+        _afterBombAliveChange: function (event) {
+            var bomb = event.target;
+
+            if (!event.newVal) {
+                this.remove(bomb);
+                this._explode(bomb.get("col"), bomb.get("row"), 3);
+            }
+        },
+
+        _explode: function (col, row, power, direction) {
+            var explosion = new Y.Tile.Explosion({ col: col, row: row, explosionDirection: direction });
+
+            if (power <= 0) {
+                return false;
+            }
+
+            Y.Array.invoke(this._getTiles(col, row), "set", "alive", false);
+
+            if (Y.Array.find(this._getTiles(col, row), function (tile) {
+                return tile.get("alive");
+            })) {
+                return false;
+            }
+
+            this.add(explosion);
+
+            switch (direction) {
+            case Y.Tile.Tile.UP:
+                explosion.set("explosionEnd", !this._explode(col, row - 1, power - 1, Y.Tile.Tile.UP));
+                break;
+            case Y.Tile.Tile.RIGHT:
+                explosion.set("explosionEnd", !this._explode(col + 1, row, power - 1, Y.Tile.Tile.RIGHT));
+                break;
+            case Y.Tile.Tile.DOWN:
+                explosion.set("explosionEnd", !this._explode(col, row + 1, power - 1, Y.Tile.Tile.DOWN));
+                break;
+            case Y.Tile.Tile.LEFT:
+                explosion.set("explosionEnd", !this._explode(col - 1, row, power - 1, Y.Tile.Tile.LEFT));
+                break;
+            default:
+                this._explode(col, row - 1, power - 1, Y.Tile.Tile.UP);
+                this._explode(col + 1, row, power - 1, Y.Tile.Tile.RIGHT);
+                this._explode(col, row + 1, power - 1, Y.Tile.Tile.DOWN);
+                this._explode(col - 1, row, power - 1, Y.Tile.Tile.LEFT);
+                break;
+            }
+
+            return true;
         },
 
         _createBorders: function () {
@@ -138,4 +198,4 @@ YUI.add("board", function (Y) {
 
     Y.namespace("Tile").Board = Board;
 
-}, "0", { requires: ["base-build", "arraylist", "collection", "hardwall"] });
+}, "0", { requires: ["base-build", "arraylist", "collection", "hardwall", "bomb", "explosion"] });

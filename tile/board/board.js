@@ -131,11 +131,11 @@ YUI.add("board", function (Y) {
                 this.add(new Y.Tile.HardWall({ row: row, col: 0 }));
                 this.add(new Y.Tile.HardWall({ row: row, col: this.get("width") - 1 }));
             }
-            // for (col = 2; col < this.get("width") - 2; col++) {
-            //     for (row = 2; row < this.get("height") - 2; row++) {
-            //         this.add(new Y.Tile.SoftWall({ row: row, col: col }));
-            //     }
-            // }
+            for (col = 2; col < this.get("width") - 2; col++) {
+                for (row = 2; row < this.get("height") - 2; row++) {
+                    this.add(new Y.Tile.SoftWall({ row: row, col: col }));
+                }
+            }
         },
 
         _getTiles: function (col, row) {

@@ -110,13 +110,9 @@ YUI.add("game", function (Y) {
             this._start();
         },
 
-        _clear: function () {
-            this._context.clearRect(0, 0, this.get("width"), this.get("height"));
-        },
-
         _redraw: function () {
-            this._clear();
             this._board.act();
+            this._context.clearRect(0, 0, this.get("width"), this.get("height"));
             this._board.draw(this._context);
         },
 

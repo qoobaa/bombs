@@ -130,11 +130,11 @@ YUI.add("board", function (Y) {
                 this.add(new Y.Tile.HardWall({ row: row, col: 0 }));
                 this.add(new Y.Tile.HardWall({ row: row, col: this.get("width") - 1 }));
             }
-            for (col = 2; col < this.get("width") - 2; col++) {
-                for (row = 2; row < this.get("height") - 2; row++) {
-                    this.add(new Y.Tile.SoftWall({ row: row, col: col }));
-                }
-            }
+            // for (col = 2; col < this.get("width") - 2; col++) {
+            //     for (row = 2; row < this.get("height") - 2; row++) {
+            //         this.add(new Y.Tile.SoftWall({ row: row, col: col }));
+            //     }
+            // }
         },
 
         _getTiles: function (col, row) {
@@ -162,17 +162,22 @@ YUI.add("board", function (Y) {
             });
         },
 
-        _sortTiles: function () {
-            this._items.sort(function (a, b) {
-                return a.get("drawOrder") > b.get("drawOrder");
-            });
-        },
+        // _sortTiles: function () {
+        //     this._items.sort(function (a, b) {
+        //         return a.get("drawOrder") > b.get("drawOrder");
+        //     });
+        // },
 
         draw: function (context) {
-            this._sortTiles();
-            this.each(function (tile) {
-                tile.draw(context);
-            });
+            Y.Array.invoke(this._items.sort(function (a, b) {
+                return a.get("drawOrder") > b.get("drawOrder");
+            }), "draw", context);
+
+
+            // this._sortTiles();
+            // this.each(function (tile) {
+            //     tile.draw(context);
+            // });
         }
 
     }, {

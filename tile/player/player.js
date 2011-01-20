@@ -80,6 +80,10 @@ YUI.add("player", function (Y) {
 
             speed: {
                 value: 0.2
+            },
+
+            drawPriority: {
+                value: 1000
             }
 
         }

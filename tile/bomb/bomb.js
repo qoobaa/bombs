@@ -28,14 +28,6 @@ YUI.add("bomb", function (Y) {
             if (event.source instanceof Y.Tile.Player) {
                 this.setAttrs({ speed: event.source.get("speed"), direction: event.source.get("direction"), moving: true });
             }
-        },
-
-        draw: function (context) {
-            this._sprite.draw(
-                context,
-                this.get("col") * 32 + Math.round(this.get("horizontalOffset") * 32 / 2),
-                this.get("row") * 32 + Math.round(this.get("verticalOffset") * 32 / 2)
-            );
         }
 
     }, {

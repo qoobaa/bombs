@@ -17,6 +17,7 @@ YUI.add("game", function (Y) {
         _renderCanvas: function () {
             this._canvasNode = this.get("contentBox").appendChild("<canvas></canvas>");
             this._canvasNode.setAttrs({ width: this.get("width"), height: this.get("height") });
+            this._canvasNode.setStyle("backgroundColor", "#9ba376");
             this._context = Y.Node.getDOMNode(this._canvasNode).getContext("2d");
         },
 
@@ -138,12 +139,12 @@ YUI.add("game", function (Y) {
 
             width: {
                 validator: Y.Lang.isNumber,
-                value: 800
+                value: 640
             },
 
             height: {
                 validator: Y.Lang.isNumber,
-                value: 600
+                value: 480
             },
 
             tileWidth: {

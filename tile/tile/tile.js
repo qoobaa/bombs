@@ -127,6 +127,14 @@ YUI.add("tile", function (Y) {
 
         _validateDirection: function (direction) {
             return Y.Array.indexOf([UP, RIGHT, DOWN, LEFT], direction) !== -1;
+        },
+
+        draw: function (context) {
+            this._sprite.draw(
+                context,
+                this.get("col") * 32 + Math.round(this.get("horizontalOffset") * 32 / 2),
+                this.get("row") * 32 + Math.round(this.get("verticalOffset") * 32 / 2)
+            );
         }
 
     }, {
@@ -203,6 +211,18 @@ YUI.add("tile", function (Y) {
             alive: {
                 validator: Y.Lang.isBoolean,
                 value: true
+            },
+
+            drawPriority: {
+                validator: Y.Lang.isNumber,
+                value: 0
+            },
+
+            drawOrder: {
+                readOnly: true,
+                getter: function () {
+                    return this.get("row") + this.get("verticalOffset") + this.get("drawPriority");
+                }
             }
 
         },

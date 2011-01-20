@@ -44,5 +44,5 @@ YUI({
         }
     }
 }).use("game", function (Y) {
-    window.GAME = new Y.Tile.Game().render();
+    window.GAME = new Y.Tile.Game().render("#game");
 });

@@ -15,14 +15,6 @@ YUI.add("hardwall", function (Y) {
             event.preventDefault();
         },
 
-        draw: function (context) {
-            this._sprite.draw(
-                context,
-                this.get("col") * 32 + Math.round(this.get("horizontalOffset") * 32 / 2),
-                this.get("row") * 32 + Math.round(this.get("verticalOffset") * 32 / 2)
-            );
-        },
-
         _onTouch: function (event) {
             event.originalEvent.preventDefault();
         }

@@ -120,21 +120,20 @@ YUI.add("board", function (Y) {
         },
 
         _createBorders: function () {
-            for (var col = 0; col < this.get("width"); col++) {
+            var col, row;
+
+            for (col = 0; col < this.get("width"); col++) {
                 this.add(new Y.Tile.HardWall({ row: 0, col: col }));
                 this.add(new Y.Tile.HardWall({ row: this.get("height") - 1, col: col }));
             }
-            for (var row = 1; row < this.get("height") - 1; row++) {
+            for (row = 1; row < this.get("height") - 1; row++) {
                 this.add(new Y.Tile.HardWall({ row: row, col: 0 }));
                 this.add(new Y.Tile.HardWall({ row: row, col: this.get("width") - 1 }));
             }
-            for (var col = 3; col < this.get("width") - 3; col++) {
-                this.add(new Y.Tile.SoftWall({ row: 3, col: col }));
-                this.add(new Y.Tile.SoftWall({ row: this.get("height") - 4, col: col }));
-            }
-            for (var row = 3; row < this.get("height") - 4; row++) {
-                this.add(new Y.Tile.SoftWall({ row: row, col: 3 }));
-                this.add(new Y.Tile.SoftWall({ row: row, col: this.get("width") - 4 }));
+            for (col = 2; col < this.get("width") - 2; col++) {
+                for (row = 2; row < this.get("height") - 2; row++) {
+                    this.add(new Y.Tile.SoftWall({ row: row, col: col }));
+                }
             }
         },
 
@@ -149,7 +148,6 @@ YUI.add("board", function (Y) {
             Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row")), "fire", "engage", { source: tile });
             if (tile.get("alive")) {
                 Y.ArrayList.prototype.add.apply(this, arguments);
-                this._sortTiles();
             }
         },
 
@@ -162,20 +160,16 @@ YUI.add("board", function (Y) {
             this.each(function (tile) {
                 tile.act();
             });
-            this._sortTiles();
         },
 
         _sortTiles: function () {
             this._items.sort(function (a, b) {
-                if (a.get("row") === b.get("row")) {
-                    return a.get("verticalOffset") > b.get("verticalOffset");
-                } else {
-                    return a.get("row") > b.get("row");
-                }
+                return a.get("drawOrder") > b.get("drawOrder");
             });
         },
 
         draw: function (context) {
+            this._sortTiles();
             this.each(function (tile) {
                 tile.draw(context);
             });

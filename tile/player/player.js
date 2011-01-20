@@ -69,12 +69,12 @@ YUI.add("player", function (Y) {
             },
 
             bombs: {
-                value: 5,
+                value: 3,
                 validator: Y.Lang.isNumber
             },
 
             power: {
-                value: 5,
+                value: 3,
                 validator: Y.Lang.isNumber
             },
 

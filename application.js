@@ -1,6 +1,15 @@
 YUI({
     filter: "raw",
     groups: {
+        gallery: {
+            base: "yui3-gallery/",
+            modules: {
+                "gallery-preload": {
+                    path: "gallery-preload/gallery-preload.js",
+                    requires: ["yui"]
+                }
+            }
+        },
         tile: {
             base: "tile/",
             modules: {
@@ -43,6 +52,19 @@ YUI({
             }
         }
     }
-}).use("game", function (Y) {
+}).use("gallery-preload", "game", function (Y) {
+    Y.preload([
+        "images/bomb.png",
+        "images/bonusbomb.png",
+        "images/bonuskick.png",
+        "images/bonuspower.png",
+        "images/bonusspeed.png",
+        "images/explosion.png",
+        "images/hardwall.png",
+        "images/player1.png",
+        "images/player2.png",
+        "images/softwall.png"
+    ]);
+
     window.GAME = new Y.Tile.Game().render("#game");
 });

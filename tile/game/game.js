@@ -22,8 +22,22 @@ YUI.add("game", function (Y) {
         },
 
         bindUI: function () {
+            this.after("playingChange", this._afterPlayingChange);
             Y.one(document).on("keydown", this._onDocumentKeyDown, this);
             Y.one(document).on("keyup", this._onDocumentKeyUp, this);
+        },
+
+        _afterPlayingChange: function (event) {
+            this._syncPlaying(event.newVal);
+        },
+
+        _syncPlaying: function (playing) {
+            if (playing && !Y.Lang.isValue(this._timer)) {
+                this._redraw();
+            } else if (!playing && Y.Lang.isValue(this._timer)) {
+                this._timer.cancel();
+                this._timer = undefined;
+            }
         },
 
         _onDocumentKeyDown: function (event) {
@@ -107,31 +121,34 @@ YUI.add("game", function (Y) {
         },
 
         syncUI: function () {
-            this._start();
+            this._syncPlaying(this.get("playing"));
         },
 
         _redraw: function () {
+            var startTime = Y.Lang.now();
+
             this._board.act();
             this._context.clearRect(0, 0, this.get("width"), this.get("height"));
-            this._board.draw(this._context);
-        },
 
-        _start: function () {
-            if (this._timer === undefined) {
-                this._timer = Y.later(this.get("interval"), this, this._redraw, [], true);
+            try {
+                this._board.draw(this._context);
+            } catch (x) {
+                Y.log(x);
             }
-        },
 
-        _stop: function () {
-            if (this._timer !== undefined) {
-                this._timer.cancel();
-                this._timer = undefined;
+            if (this.get("playing")) {
+                this._timer = Y.later(Math.max(this.get("interval") - (Y.Lang.now() - startTime), 0), this, this._redraw, []);
             }
         }
 
     }, {
 
         ATTRS: {
+
+            playing: {
+                value: true,
+                validator: Y.Lang.isNumber
+            },
 
             width: {
                 validator: Y.Lang.isNumber,

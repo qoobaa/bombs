@@ -93,7 +93,6 @@ YUI.add("board", function (Y) {
                 return false;
             }
 
-            this.add(explosion);
 
             switch (direction) {
             case Y.Tile.Tile.UP:
@@ -115,6 +114,8 @@ YUI.add("board", function (Y) {
                 this._explode(col - 1, row, power - 1, Y.Tile.Tile.LEFT);
                 break;
             }
+
+            this.add(explosion);
 
             return true;
         },
@@ -162,22 +163,10 @@ YUI.add("board", function (Y) {
             });
         },
 
-        // _sortTiles: function () {
-        //     this._items.sort(function (a, b) {
-        //         return a.get("drawOrder") > b.get("drawOrder");
-        //     });
-        // },
-
         draw: function (context) {
             Y.Array.invoke(this._items.sort(function (a, b) {
                 return a.get("drawOrder") > b.get("drawOrder");
             }), "draw", context);
-
-
-            // this._sortTiles();
-            // this.each(function (tile) {
-            //     tile.draw(context);
-            // });
         }
 
     }, {

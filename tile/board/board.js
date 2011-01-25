@@ -158,14 +158,12 @@ YUI.add("board", function (Y) {
         },
 
         act: function () {
-            this.each(function (tile) {
-                tile.act();
-            });
+            Y.Array.invoke(this._items.slice(0), "act");
         },
 
         draw: function (context) {
             Y.Array.invoke(this._items.sort(function (a, b) {
-                return a.get("drawOrder") > b.get("drawOrder");
+                return a.get("drawOrder") - b.get("drawOrder");
             }), "draw", context);
         }
 

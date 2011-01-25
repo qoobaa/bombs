@@ -125,6 +125,10 @@ YUI.add("game", function (Y) {
         },
 
         _redraw: function () {
+            if (window.i === undefined) {
+                window.i = 0;
+            }
+
             var startTime = Y.Lang.now();
 
             this._board.act();
@@ -139,6 +143,7 @@ YUI.add("game", function (Y) {
             if (this.get("playing")) {
                 this._timer = Y.later(Math.max(this.get("interval") - (Y.Lang.now() - startTime), 0), this, this._redraw, []);
             }
+            i++;
         }
 
     }, {

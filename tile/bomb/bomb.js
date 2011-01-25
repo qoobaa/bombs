@@ -27,6 +27,8 @@ YUI.add("bomb", function (Y) {
             event.originalEvent.preventDefault();
             if (event.source instanceof Y.Tile.Player) {
                 this.setAttrs({ speed: event.source.get("speed"), direction: event.source.get("direction"), moving: true });
+            } else if (event.source instanceof Y.Tile.Bomb) {
+                event.source.setAttrs({ moving: false, verticalOffset: 0, horizontalOffset: 0 });
             }
         }
 

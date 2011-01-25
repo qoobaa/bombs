@@ -93,7 +93,11 @@ YUI.add("sprite", function (Y) {
                         return image;
                     } else if (Y.Lang.isString(image)) {
                         var img = new Image();
-                        img.src = image;
+                        if (Y.Lang.isValue(window.IMAGES)) {
+                            img.src = window.IMAGES[image]; // temporary
+                        } else {
+                            img.src = image;
+                        }
                         return img;
                     } else {
                         return Y.Attribute.INVALID_VALUE;

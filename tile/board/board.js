@@ -222,4 +222,4 @@ YUI.add("board", function (Y) {
 
     Y.namespace("Tile").Board = Board;
 
-}, "0", { requires: ["base-build", "arraylist", "collection", "hardwall", "bomb", "explosion", "bonusbomb", "bonuspower", "bonuskick", "bonusspeed"] });
+}, "0", { requires: ["base-build", "arraylist", "collection", "hardwall", "explosion", "softwall", "bonusbomb", "bonuspower", "bonuskick", "bonusspeed"] });

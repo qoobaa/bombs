@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bombs!</title>
+    <style>
+      <%= include_file("main.css") %>
+    </style>
+  </head>
+  <body>
+    <h1>Bombs!</h1>
+    <p>blue player keys: ↑↓←→, ENTER; green player keys: WSAD, 1</p>
+    <div id="game"></div>
+    <script type="text/javascript">
+      <%= include_file("yui3/yui/yui-min.js") %>
+      <%= include_file("yui3/loader/loader-min.js") %>
+      <%= include_file("yui3/oop/oop-min.js") %>
+      <%= include_file("yui3/event-custom/event-custom-min.js") %>
+      <%= include_file("yui3/attribute/attribute-min.js") %>
+      <%= include_file("yui3/dom/dom-min.js") %>
+      <%= include_file("yui3/event/event-min.js") %>
+      <%= include_file("yui3/node/node-base-min.js") %>
+      <%= include_file("yui3/pluginhost/pluginhost-min.js") %>
+      <%= include_file("yui3/node/node-style-min.js") %>
+      <%= include_file("yui3/classnamemanager/classnamemanager-min.js") %>
+      <%= include_file("yui3/node/node-event-delegate-min.js") %>
+      <%= include_file("yui3/base/base-min.js") %>
+      <%= include_file("yui3/widget/widget-min.js") %>
+      <%= include_file("yui3/collection/collection-min.js") %>
+      <%= include_file("tile/tile/tile.js") %>
+      <%= include_file("tile/sprite/sprite.js") %>
+      <%= include_file("tile/bomb/bomb.js") %>
+      <%= include_file("tile/player/player.js") %>
+      <%= include_file("tile/hardwall/hardwall.js") %>
+      <%= include_file("tile/explosion/explosion.js") %>
+      <%= include_file("tile/softwall/softwall.js") %>
+      <%= include_file("tile/bonusbomb/bonusbomb.js") %>
+      <%= include_file("tile/bonuspower/bonuspower.js") %>
+      <%= include_file("tile/bonuskick/bonuskick.js") %>
+      <%= include_file("tile/bonusspeed/bonusspeed.js") %>
+      <%= include_file("tile/board/board.js") %>
+      <%= include_file("tile/game/game.js") %>
+      YUI().use("game", function (Y) {
+
+          IMAGES = {};
+          IMAGES["images/bomb.png"] = "<%= make_data_uri("images/bomb.png", "image/png") %>";
+          IMAGES["images/bonusbomb.png"] = "<%= make_data_uri("images/bonusbomb.png", "image/png") %>";
+          IMAGES["images/bonuskick.png"] = "<%= make_data_uri("images/bonuskick.png", "image/png") %>";
+          IMAGES["images/bonuspower.png"] = "<%= make_data_uri("images/bonuspower.png", "image/png") %>";
+          IMAGES["images/bonusspeed.png"] = "<%= make_data_uri("images/bonusspeed.png", "image/png") %>";
+          IMAGES["images/explosion.png"] = "<%= make_data_uri("images/explosion.png", "image/png") %>";
+          IMAGES["images/hardwall.png"] = "<%= make_data_uri("images/hardwall.png", "image/png") %>";
+          IMAGES["images/player1.png"] = "<%= make_data_uri("images/player1.png", "image/png") %>";
+          IMAGES["images/player2.png"] = "<%= make_data_uri("images/player2.png", "image/png") %>";
+          IMAGES["images/softwall.png"] = "<%= make_data_uri("images/softwall.png", "image/png") %>";
+
+          new Y.Tile.Game().render("#game");
+      });
+    </script>
+  </body>
+</html>

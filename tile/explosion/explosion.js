@@ -8,7 +8,7 @@ YUI.add("explosion", function (Y) {
                 looping: false,
                 image: "images/explosion.png",
                 frames: 4,
-                speed: 0.2
+                speed: 0.25
             });
             this.on("engage", this._onEngage);
             this.after("explosionDirectionChange", this._afterExplosionDirectionChange);
@@ -54,7 +54,7 @@ YUI.add("explosion", function (Y) {
         ATTRS: {
 
             ttl: {
-                value: 20
+                value: 16
             },
 
             explosionDirection: {

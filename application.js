@@ -19,7 +19,7 @@ YUI({
                 },
                 board: {
                     path: "board/board.js",
-                    requires: ["base-build", "arraylist", "collection", "hardwall", "explosion", "softwall"]
+                    requires: ["base-build", "arraylist", "collection", "hardwall", "explosion", "softwall", "bonusbomb", "bonuspower", "bonuskick", "bonusspeed"]
                 },
                 sprite: {
                     path: "sprite/sprite.js",
@@ -43,6 +43,22 @@ YUI({
                 },
                 explosion: {
                     path: "explosion/explosion.js",
+                    requires: ["base-build", "tile", "sprite"]
+                },
+                bonusbomb: {
+                    path: "bonusbomb/bonusbomb.js",
+                    requires: ["base-build", "tile", "sprite"]
+                },
+                bonuspower: {
+                    path: "bonuspower/bonuspower.js",
+                    requires: ["base-build", "tile", "sprite"]
+                },
+                bonuskick: {
+                    path: "bonuskick/bonuskick.js",
+                    requires: ["base-build", "tile", "sprite"]
+                },
+                bonusspeed: {
+                    path: "bonusspeed/bonusspeed.js",
                     requires: ["base-build", "tile", "sprite"]
                 },
                 game: {

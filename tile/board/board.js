@@ -10,6 +10,7 @@ YUI.add("board", function (Y) {
             this.after("*:aliveChange", this._afterAliveChange);
             this.on("player:bombsChange", this._onPlayerBombsChange);
             this.after("bomb:aliveChange", this._afterBombAliveChange);
+            this.after("softwall:aliveChange", this._afterSoftWallAliveChange);
 
             this._createBorders();
         },
@@ -78,6 +79,31 @@ YUI.add("board", function (Y) {
             }
         },
 
+        _afterSoftWallAliveChange: function (event) {
+            var softWall = event.target;
+
+            if (!event.newVal) {
+                this._bonus(softWall.get("col"), softWall.get("row"));
+            }
+        },
+
+        _bonus: function (col, row) {
+            switch (Math.round(Math.random() * 10)) {
+            case 0:
+                this.add(new Y.Tile.BonusKick({ col: col, row: row }));
+                break;
+            case 1:
+                this.add(new Y.Tile.BonusPower({ col: col, row: row }));
+                break;
+            case 2:
+                this.add(new Y.Tile.BonusSpeed({ col: col, row: row }));
+                break;
+            case 3:
+                this.add(new Y.Tile.BonusBomb({ col: col, row: row }));
+                break;
+            }
+        },
+
         _explode: function (col, row, power, direction) {
             var explosion = new Y.Tile.Explosion({ col: col, row: row, explosionDirection: direction });
 
@@ -131,8 +157,8 @@ YUI.add("board", function (Y) {
                 this.add(new Y.Tile.HardWall({ row: row, col: 0 }));
                 this.add(new Y.Tile.HardWall({ row: row, col: this.get("width") - 1 }));
             }
-            for (col = 2; col < this.get("width") - 2; col++) {
-                for (row = 2; row < this.get("height") - 2; row++) {
+            for (col = 3; col < this.get("width") - 3; col++) {
+                for (row = 3; row < this.get("height") - 3; row++) {
                     this.add(new Y.Tile.SoftWall({ row: row, col: col }));
                 }
             }
@@ -196,4 +222,4 @@ YUI.add("board", function (Y) {
 
     Y.namespace("Tile").Board = Board;
 
-}, "0", { requires: ["base-build", "arraylist", "collection", "hardwall", "bomb", "explosion"] });
+}, "0", { requires: ["base-build", "arraylist", "collection", "hardwall", "bomb", "explosion", "bonusbomb", "bonuspower", "bonuskick", "bonusspeed"] });

@@ -33,6 +33,7 @@ YUI.add("softwall", function (Y) {
 
         _onTouch: function (event) {
             event.originalEvent.preventDefault();
+            event.source.stop();
         }
 
     });

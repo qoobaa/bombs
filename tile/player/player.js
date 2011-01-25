@@ -69,12 +69,12 @@ YUI.add("player", function (Y) {
             },
 
             bombs: {
-                value: 3,
+                value: 1,
                 validator: Y.Lang.isNumber
             },
 
             power: {
-                value: 3,
+                value: 2,
                 validator: Y.Lang.isNumber
             },
 
@@ -84,6 +84,11 @@ YUI.add("player", function (Y) {
 
             drawPriority: {
                 value: 1000
+            },
+
+            kicking: {
+                value: false,
+                validator: Y.Lang.isBoolean
             }
 
         }

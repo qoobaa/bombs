@@ -17,6 +17,7 @@ YUI.add("hardwall", function (Y) {
 
         _onTouch: function (event) {
             event.originalEvent.preventDefault();
+            event.source.stop();
         }
 
     });

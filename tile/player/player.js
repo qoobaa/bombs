@@ -57,6 +57,7 @@ YUI.add("player", function (Y) {
         _onTouch: function (event) {
             if (event.source instanceof Y.Tile.Bomb) {
                 event.originalEvent.preventDefault();
+                event.source.stop();
             }
         }
 

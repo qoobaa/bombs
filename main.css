@@ -2,3 +2,296 @@ body {
     width: 640px;
     margin: auto;
 }
+
+.tile {
+    width: 32px;
+    height: 32px;
+    -moz-animation-timing-function: step-start;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-duration: 500ms;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+/* PLAYERS */
+
+.player {
+    height: 48px;
+    -moz-animation-duration: 750ms;
+}
+
+.player.first {
+    background-image: url("images/player1.png");
+    background-position: 0 -96px;
+}
+
+.player.second {
+    background-image: url("images/player2.png");
+    background-position: 0 -96px;
+}
+
+.player.up {
+    background-position: 0 0;
+}
+
+.player.right {
+    background-position: 0 -48px;
+}
+
+.player.down {
+    background-position: 0 -96px;
+}
+
+.player.left {
+    background-position: 0 -144px;
+}
+
+.player.up.animating {
+    -moz-animation-name: player-up;
+}
+
+.player.right.animating {
+    -moz-animation-name: player-right;
+}
+
+.player.down.animating {
+    -moz-animation-name: player-down;
+}
+
+.player.left.animating {
+    -moz-animation-name: player-left;
+}
+
+@-moz-keyframes player-up {
+       0.0% { background-position:    0px 0px; }
+      12.5% { background-position:  -32px 0px; }
+      25.0% { background-position:  -64px 0px; }
+      37.5% { background-position:  -96px 0px; }
+      50.0% { background-position: -128px 0px; }
+      62.5% { background-position: -160px 0px; }
+      75.0% { background-position: -192px 0px; }
+      87.5% { background-position: -224px 0px; }
+     100.0% { background-position:    0px 0px; }
+}
+
+@-moz-keyframes player-right {
+       0.0% { background-position:    0px -48px; }
+      12.5% { background-position:  -32px -48px; }
+      25.0% { background-position:  -64px -48px; }
+      37.5% { background-position:  -96px -48px; }
+      50.0% { background-position: -128px -48px; }
+      62.5% { background-position: -160px -48px; }
+      75.0% { background-position: -192px -48px; }
+      87.5% { background-position: -224px -48px; }
+     100.0% { background-position:    0px -48px; }
+}
+
+@-moz-keyframes player-down {
+       0.0% { background-position:    0px -96px; }
+      12.5% { background-position:  -32px -96px; }
+      25.0% { background-position:  -64px -96px; }
+      37.5% { background-position:  -96px -96px; }
+      50.0% { background-position: -128px -96px; }
+      62.5% { background-position: -160px -96px; }
+      75.0% { background-position: -192px -96px; }
+      87.5% { background-position: -224px -96px; }
+     100.0% { background-position:    0px -96px; }
+}
+
+@-moz-keyframes player-left {
+       0.0% { background-position:    0px -144px; }
+      12.5% { background-position:  -32px -144px; }
+      25.0% { background-position:  -64px -144px; }
+      37.5% { background-position:  -96px -144px; }
+      50.0% { background-position: -128px -144px; }
+      62.5% { background-position: -160px -144px; }
+      75.0% { background-position: -192px -144px; }
+      87.5% { background-position: -224px -144px; }
+     100.0% { background-position:    0px -144px; }
+}
+
+/* BOMB */
+
+.bomb {
+    background-image: url("images/bomb.png");
+    -moz-animation-duration: 400ms;
+}
+
+.bomb.animating {
+    -moz-animation-name: bomb;
+}
+
+@-moz-keyframes bomb {
+       0.0% { background-position:   0px 0px; }
+      25.0% { background-position: -32px 0px; }
+      50.0% { background-position: -64px 0px; }
+      75.0% { background-position: -96px 0px; }
+     100.0% { background-position:   0px 0px; }
+}
+
+/* SOFTWALL */
+
+.softwall {
+    background-image: url("images/softwall.png");
+    -moz-animation-iteration-count: 1
+}
+
+.softwall.animating {
+    background-position: -192px 0;
+    -moz-animation-name: softwall;
+}
+
+@-moz-keyframes softwall {
+      0.0% { background-position: -32px 0px; }
+     20.0% { background-position: -64px 0px; }
+     40.0% { background-position: -96px 0px; }
+     60.0% { background-position: -128px 0px; }
+     80.0% { background-position: -160px 0px; }
+    100.0% { background-position: -192px 0px; }
+}
+
+/* HARDWALL */
+
+.hardwall {
+    background-image: url("images/hardwall.png");
+}
+
+/* EXPLOSION */
+
+.explosion {
+    background-image: url("images/explosion.png");
+    -moz-animation-iteration-count: 1;
+}
+
+.explosion.animating {
+    background-position: -128px 0px;
+    -moz-animation-name: explosion;
+}
+
+.explosion.vertical {
+    background-position: 0px -32px;
+}
+
+.explosion.vertical.animating {
+    background-position: -128px -32px;
+    -moz-animation-name: explosion-vertical;
+}
+
+.explosion.horizontal {
+    background-position: 0px -64px;
+}
+
+.explosion.horizontal.animating {
+    background-position: -128px -64px;
+    -moz-animation-name: explosion-horizontal;
+}
+
+.explosion.up {
+    background-position: 0px -96px;
+}
+
+.explosion.up.animating {
+    background-position: -128px -96px;
+    -moz-animation-name: explosion-up;
+}
+
+.explosion.right {
+    background-position: 0px -128px;
+}
+
+.explosion.right.animating {
+    background-position: -128px -128px;
+    -moz-animation-name: explosion-right;
+}
+
+.explosion.down {
+    background-position: 0px -160px;
+}
+
+.explosion.down.animating {
+    background-position: -128px -160px;
+    -moz-animation-name: explosion-down;
+}
+
+.explosion.left {
+    background-position: 0px -192px;
+}
+
+.explosion.left.animating {
+    background-position: -128px -192px;
+    -moz-animation-name: explosion-left;
+}
+
+@-moz-keyframes explosion {
+    0% { background-position: 0px 0px; }
+    25% { background-position: -32px 0px; }
+    50% { background-position: -64px 0px; }
+    75% { background-position: -96px 0px; }
+    100% { background-position: -128px 0px; }
+}
+
+@-moz-keyframes explosion-vertical {
+    0% { background-position: 0px -32px; }
+    25% { background-position: -32px -32px; }
+    50% { background-position: -64px -32px; }
+    75% { background-position: -96px -32px; }
+    100% { background-position: -128px -32px; }
+}
+
+@-moz-keyframes explosion-horizontal {
+    0% { background-position: 0px -64px; }
+    25% { background-position: -32px -64px; }
+    50% { background-position: -64px -64px; }
+    75% { background-position: -96px -64px; }
+    100% { background-position: -128px -64px; }
+}
+
+@-moz-keyframes explosion-up {
+    0% { background-position: 0px -96px; }
+    25% { background-position: -32px -96px; }
+    50% { background-position: -64px -96px; }
+    75% { background-position: -96px -96px; }
+    100% { background-position: -128px -96px; }
+}
+
+@-moz-keyframes explosion-right {
+    0% { background-position: 0px -128px; }
+    25% { background-position: -32px -128px; }
+    50% { background-position: -64px -128px; }
+    75% { background-position: -96px -128px; }
+    100% { background-position: -128px -128px; }
+}
+
+@-moz-keyframes explosion-down {
+    0% { background-position: 0px -160px; }
+    25% { background-position: -32px -160px; }
+    50% { background-position: -64px -160px; }
+    75% { background-position: -96px -160px; }
+    100% { background-position: -128px -160px; }
+}
+
+@-moz-keyframes explosion-left {
+    0% { background-position: 0px -192px; }
+    25% { background-position: -32px -192px; }
+    50% { background-position: -64px -192px; }
+    75% { background-position: -96px -192px; }
+    100% { background-position: -128px -192px; }
+}
+
+/* BONUS */
+
+.bonus.bomb {
+    background-image: url("images/bonusbomb.png");
+}
+
+.bonus.speed {
+    background-image: url("images/bonusspeed.png");
+}
+
+.bonus.kick {
+    background-image: url("images/bonuskick.png");
+}
+
+.bonus.power {
+    background-image: url("images/bonuspower.png");
+}

@@ -3,13 +3,24 @@
   <head>
     <meta charset="utf-8">
     <title>Bombs!</title>
-    <script type="text/javascript" src="yui3/yui/yui.js"></script>
-    <script type="text/javascript" src="application.js"></script>
+    <!-- <script type="text/javascript" src="yui3/yui/yui.js"></script> -->
+    <!-- <script type="text/javascript" src="application.js"></script> -->
     <link rel="stylesheet" type="text/css" href="main.css" />
   </head>
   <body>
     <h1>Bombs!</h1>
     <p>blue player keys: ↑↓←→, ENTER; green player keys: WSAD, 1</p>
     <div id="game"></div>
+    <div class="tile player first up animating"></div>
+    <div class="tile player second right"></div>
+    <div class="tile bomb animating"></div>
+    <div class="tile softwall animating"></div>
+    <div class="tile softwall"></div>
+    <div class="tile hardwall"></div>
+    <div class="tile explosion vertical animating"></div>
+    <div class="tile bonus bomb"></div>
+    <div class="tile bonus speed"></div>
+    <div class="tile bonus kick"></div>
+    <div class="tile bonus power"></div>
   </body>
 </html>

@@ -29,6 +29,7 @@ body {
 
 .player {
     height: 48px;
+    margin-top: -16px;
 }
 
 .player.animating {

@@ -223,58 +223,58 @@ body {
 }
 
 @-moz-keyframes explosion {
-    0% { background-position: 0px 0px; }
-    25% { background-position: -32px 0px; }
-    50% { background-position: -64px 0px; }
-    75% { background-position: -96px 0px; }
+      0% { background-position:    0px 0px; }
+     25% { background-position:  -32px 0px; }
+     50% { background-position:  -64px 0px; }
+     75% { background-position:  -96px 0px; }
     100% { background-position: -128px 0px; }
 }
 
 @-moz-keyframes explosion-vertical {
-    0% { background-position: 0px -32px; }
-    25% { background-position: -32px -32px; }
-    50% { background-position: -64px -32px; }
-    75% { background-position: -96px -32px; }
+      0% { background-position:    0px -32px; }
+     25% { background-position:  -32px -32px; }
+     50% { background-position:  -64px -32px; }
+     75% { background-position:  -96px -32px; }
     100% { background-position: -128px -32px; }
 }
 
 @-moz-keyframes explosion-horizontal {
-    0% { background-position: 0px -64px; }
-    25% { background-position: -32px -64px; }
-    50% { background-position: -64px -64px; }
-    75% { background-position: -96px -64px; }
+      0% { background-position:    0px -64px; }
+     25% { background-position:  -32px -64px; }
+     50% { background-position:  -64px -64px; }
+     75% { background-position:  -96px -64px; }
     100% { background-position: -128px -64px; }
 }
 
 @-moz-keyframes explosion-up {
-    0% { background-position: 0px -96px; }
-    25% { background-position: -32px -96px; }
-    50% { background-position: -64px -96px; }
-    75% { background-position: -96px -96px; }
+      0% { background-position:    0px -96px; }
+     25% { background-position:  -32px -96px; }
+     50% { background-position:  -64px -96px; }
+     75% { background-position:  -96px -96px; }
     100% { background-position: -128px -96px; }
 }
 
 @-moz-keyframes explosion-right {
-    0% { background-position: 0px -128px; }
-    25% { background-position: -32px -128px; }
-    50% { background-position: -64px -128px; }
-    75% { background-position: -96px -128px; }
+      0% { background-position:    0px -128px; }
+     25% { background-position:  -32px -128px; }
+     50% { background-position:  -64px -128px; }
+     75% { background-position:  -96px -128px; }
     100% { background-position: -128px -128px; }
 }
 
 @-moz-keyframes explosion-down {
-    0% { background-position: 0px -160px; }
-    25% { background-position: -32px -160px; }
-    50% { background-position: -64px -160px; }
-    75% { background-position: -96px -160px; }
+      0% { background-position:    0px -160px; }
+     25% { background-position:  -32px -160px; }
+     50% { background-position:  -64px -160px; }
+     75% { background-position:  -96px -160px; }
     100% { background-position: -128px -160px; }
 }
 
 @-moz-keyframes explosion-left {
-    0% { background-position: 0px -192px; }
-    25% { background-position: -32px -192px; }
-    50% { background-position: -64px -192px; }
-    75% { background-position: -96px -192px; }
+      0% { background-position:    0px -192px; }
+     25% { background-position:  -32px -192px; }
+     50% { background-position:  -64px -192px; }
+     75% { background-position:  -96px -192px; }
     100% { background-position: -128px -192px; }
 }
 

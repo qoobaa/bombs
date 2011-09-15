@@ -10,7 +10,6 @@ YUI.add("tile", function (Y) {
         initializer: function () {
             this.on("horizontalOffsetChange", this._onHorizontalOffsetChange);
             this.on("verticalOffsetChange", this._onVerticalOffsetChange);
-            this.on("speedChange", this._onSpeedChange);
             this.after("timeChange", this._afterTimeChange);
         },
 
@@ -37,12 +36,6 @@ YUI.add("tile", function (Y) {
             } else if (event.newVal < -1) {
                 event.newVal += 2;
                 this.set("row", this.get("row") - 1);
-            }
-        },
-
-        _onSpeedChange: function (event) {
-            if (event.newVal > 1) {
-                event.preventDefault();
             }
         },
 
@@ -136,6 +129,10 @@ YUI.add("tile", function (Y) {
             return Y.Array.indexOf([UP, RIGHT, DOWN, LEFT], direction) !== -1;
         },
 
+        _validateSpeed: function (speed) {
+            return Y.Lang.isNumber(speed) && 0 <= speed && speed < 1;
+        },
+
         draw: function (context) {
             this._sprite.draw(
                 context,
@@ -187,7 +184,7 @@ YUI.add("tile", function (Y) {
             },
 
             speed: {
-                validator: Y.Lang.isNumber,
+                validator: "_validateSpeed",
                 value: 0.1
             },
 

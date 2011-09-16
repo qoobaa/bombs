@@ -19,7 +19,7 @@ window.YUI_config = {
             modules: {
                 "bombs-board": {
                     path: "board/board.js",
-                    requires: ["base-build", "arraylist", "collection", "bombs-hardwall", "bombs-explosion", "bombs-softwall", "bombs-bonusbomb", "bombs-bonuspower", "bombs-bonuskick", "bombs-bonusspeed"]
+                    requires: ["base-build", "arraylist", "tile-board", "collection", "bombs-hardwall", "bombs-explosion", "bombs-softwall", "bombs-bonusbomb", "bombs-bonuspower", "bombs-bonuskick", "bombs-bonusspeed"]
                 },
                 "bombs-player": {
                     path: "player/player.js",

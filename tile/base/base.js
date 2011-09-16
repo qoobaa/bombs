@@ -137,6 +137,11 @@ YUI.add("tile-base", function (Y) {
 
         ATTRS: {
 
+            id: {
+                validator: Y.Lang.isNumber,
+                writeOnce: true
+            },
+
             row: {
                 validator: Y.Lang.isNumber,
                 value: 0

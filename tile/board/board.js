@@ -3,6 +3,8 @@ YUI.add("tile-board", function (Y) {
     var Board = Y.Base.create("board", Y.Base, [Y.ArrayList], {
 
         initializer: function () {
+            this._tilesCounter = 0;
+
             this.on("*:rowChange", this._onTileRowChange);
             this.on("*:colChange", this._onTileColChange);
             this.on("*:horizontalOffsetChange", this._onTileHorizontalOffsetChange);
@@ -56,9 +58,19 @@ YUI.add("tile-board", function (Y) {
             });
         },
 
+        getTileById: function (id) {
+            return Y.Array.find(this._items, function (tile) {
+                return tile._id === id;
+            });
+        },
+
         add: function (tile) {
+            this._stamp(tile);
+
             tile.addTarget(this);
+
             Y.Array.invoke(this.getTilesByPosition(tile.get("col"), tile.get("row")), "fire", "engage", { source: tile });
+
             if (tile.get("alive")) {
                 Y.ArrayList.prototype.add.apply(this, arguments);
             }
@@ -66,11 +78,18 @@ YUI.add("tile-board", function (Y) {
 
         remove: function (tile) {
             tile.removeTarget(this);
+
             Y.ArrayList.prototype.remove.apply(this, arguments);
         },
 
         act: function () {
             Y.Array.invoke(this._items.slice(0), "act");
+        },
+
+        _stamp: function (tile) {
+            var id = this._tilesCounter++;
+
+            tile.set("id", id);
         }
 
     }, {

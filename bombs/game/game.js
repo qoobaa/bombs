@@ -1,11 +1,11 @@
-YUI.add("game", function (Y) {
+YUI.add("bombs-game", function (Y) {
 
     var Game = Y.Base.create("game", Y.Widget, [], {
 
         initializer: function () {
-            this._player1 = new Y.Tile.Player({ number: 1, row: 1, col: 1 });
-            this._player2 = new Y.Tile.Player({ number: 2, row: 13, col: 18 });
-            this._board = new Y.Tile.Board();
+            this._player1 = new Y.Bombs.Player({ number: 1, row: 1, col: 1 });
+            this._player2 = new Y.Bombs.Player({ number: 2, row: 13, col: 18 });
+            this._board = new Y.Bombs.Board();
             this._board.add(this._player1);
             this._board.add(this._player2);
         },
@@ -43,31 +43,31 @@ YUI.add("game", function (Y) {
         _onDocumentKeyDown: function (event) {
             switch (event.keyCode) {
             case this.get("controls.1.left"):
-                this._player1.setAttrs({ direction: Y.Tile.Tile.LEFT, moving: true });
+                this._player1.setAttrs({ direction: Y.Tile.Base.LEFT, moving: true });
                 break;
             case this.get("controls.1.up"):
-                this._player1.setAttrs({ direction: Y.Tile.Tile.UP, moving: true });
+                this._player1.setAttrs({ direction: Y.Tile.Base.UP, moving: true });
                 break;
             case this.get("controls.1.right"):
-                this._player1.setAttrs({ direction: Y.Tile.Tile.RIGHT, moving: true });
+                this._player1.setAttrs({ direction: Y.Tile.Base.RIGHT, moving: true });
                 break;
             case this.get("controls.1.down"):
-                this._player1.setAttrs({ direction: Y.Tile.Tile.DOWN, moving: true });
+                this._player1.setAttrs({ direction: Y.Tile.Base.DOWN, moving: true });
                 break;
             case this.get("controls.1.bomb"):
                 this._player1.bomb();
                 break;
             case this.get("controls.2.left"):
-                this._player2.setAttrs({ direction: Y.Tile.Tile.LEFT, moving: true });
+                this._player2.setAttrs({ direction: Y.Tile.Base.LEFT, moving: true });
                 break;
             case this.get("controls.2.up"):
-                this._player2.setAttrs({ direction: Y.Tile.Tile.UP, moving: true });
+                this._player2.setAttrs({ direction: Y.Tile.Base.UP, moving: true });
                 break;
             case this.get("controls.2.right"):
-                this._player2.setAttrs({ direction: Y.Tile.Tile.RIGHT, moving: true });
+                this._player2.setAttrs({ direction: Y.Tile.Base.RIGHT, moving: true });
                 break;
             case this.get("controls.2.down"):
-                this._player2.setAttrs({ direction: Y.Tile.Tile.DOWN, moving: true });
+                this._player2.setAttrs({ direction: Y.Tile.Base.DOWN, moving: true });
                 break;
             case this.get("controls.2.bomb"):
                 this._player2.bomb();
@@ -78,42 +78,42 @@ YUI.add("game", function (Y) {
         _onDocumentKeyUp: function (event) {
             switch (event.keyCode) {
             case this.get("controls.1.left"):
-                if (this._player1.get("direction") === Y.Tile.Tile.LEFT) {
+                if (this._player1.get("direction") === Y.Tile.Base.LEFT) {
                     this._player1.set("moving", false);
                 }
                 break;
             case this.get("controls.1.up"):
-                if (this._player1.get("direction") === Y.Tile.Tile.UP) {
+                if (this._player1.get("direction") === Y.Tile.Base.UP) {
                     this._player1.set("moving", false);
                 }
                 break;
             case this.get("controls.1.right"):
-                if (this._player1.get("direction") === Y.Tile.Tile.RIGHT) {
+                if (this._player1.get("direction") === Y.Tile.Base.RIGHT) {
                     this._player1.set("moving", false);
                 }
                 break;
             case this.get("controls.1.down"):
-                if (this._player1.get("direction") === Y.Tile.Tile.DOWN) {
+                if (this._player1.get("direction") === Y.Tile.Base.DOWN) {
                     this._player1.set("moving", false);
                 }
                 break;
             case this.get("controls.2.left"):
-                if (this._player2.get("direction") === Y.Tile.Tile.LEFT) {
+                if (this._player2.get("direction") === Y.Tile.Base.LEFT) {
                     this._player2.set("moving", false);
                 }
                 break;
             case this.get("controls.2.up"):
-                if (this._player2.get("direction") === Y.Tile.Tile.UP) {
+                if (this._player2.get("direction") === Y.Tile.Base.UP) {
                     this._player2.set("moving", false);
                 }
                 break;
             case this.get("controls.2.right"):
-                if (this._player2.get("direction") === Y.Tile.Tile.RIGHT) {
+                if (this._player2.get("direction") === Y.Tile.Base.RIGHT) {
                     this._player2.set("moving", false);
                 }
                 break;
             case this.get("controls.2.down"):
-                if (this._player2.get("direction") === Y.Tile.Tile.DOWN) {
+                if (this._player2.get("direction") === Y.Tile.Base.DOWN) {
                     this._player2.set("moving", false);
                 }
                 break;
@@ -143,7 +143,7 @@ YUI.add("game", function (Y) {
             if (this.get("playing")) {
                 this._timer = Y.later(Math.max(this.get("interval") - (Y.Lang.now() - startTime), 0), this, this._redraw, []);
             }
-            i++;
+            window.i++;
         }
 
     }, {
@@ -203,6 +203,6 @@ YUI.add("game", function (Y) {
 
     });
 
-    Y.namespace("Tile").Game = Game;
+    Y.namespace("Bombs").Game = Game;
 
-}, "0", { requires: ["widget", "base-build", "player", "board"] });
+}, "0", { requires: ["widget", "base-build", "bombs-player", "bombs-board"] });

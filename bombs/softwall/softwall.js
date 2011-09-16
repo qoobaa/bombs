@@ -1,15 +1,8 @@
-YUI.add("softwall", function (Y) {
+YUI.add("bombs-softwall", function (Y) {
 
-    var SoftWall = Y.Base.create("softwall", Y.Tile.Tile, [], {
+    var SoftWall = Y.Base.create("softwall", Y.Tile.Base, [], {
 
         initializer: function () {
-            this._sprite = new Y.Tile.Sprite({
-                playing: false,
-                looping: false,
-                frames: 6,
-                speed: 0.5,
-                image: "images/softwall.png"
-            });
             this.on("touch", this._onTouch);
             this.on("aliveChange", this._onAliveChange);
         },
@@ -18,7 +11,6 @@ YUI.add("softwall", function (Y) {
             if (!Y.Lang.isValue(this.get("ttl")) && !event.newVal) {
                 event.preventDefault();
                 this.setAttrs({ time: 0, ttl: 10 });
-                this._sprite.set("playing", true);
             } else if (Y.Lang.isValue(this.get("time")) && this.get("time") < this.get("ttl")) {
                 event.preventDefault();
             }
@@ -27,7 +19,6 @@ YUI.add("softwall", function (Y) {
         _afterDyingChange: function (event) {
             if (event.newVal) {
                 this.setAttrs({ time: 0, ttl: 20 });
-                this._sprite.set("playing", true);
             }
         },
 
@@ -38,6 +29,6 @@ YUI.add("softwall", function (Y) {
 
     });
 
-    Y.namespace("Tile").SoftWall = SoftWall;
+    Y.namespace("Bombs").SoftWall = SoftWall;
 
-}, "0", { requires: ["base-build", "tile", "sprite"] });
+}, "0", { requires: ["base-build", "tile-base"] });

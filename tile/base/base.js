@@ -1,11 +1,11 @@
-YUI.add("tile", function (Y) {
+YUI.add("tile-base", function (Y) {
 
     var UP =    { direction: "up"    },
         RIGHT = { direction: "right" },
         DOWN =  { direction: "down"  },
         LEFT =  { direction: "left"  };
 
-    var Tile = Y.Base.create("tile", Y.Base, [], {
+    var Base = Y.Base.create("Base", Y.Base, [], {
 
         initializer: function () {
             this.on("horizontalOffsetChange", this._onHorizontalOffsetChange);
@@ -131,14 +131,6 @@ YUI.add("tile", function (Y) {
 
         _validateSpeed: function (speed) {
             return Y.Lang.isNumber(speed) && 0 <= speed && speed < 1;
-        },
-
-        draw: function (context) {
-            this._sprite.draw(
-                context,
-                this.get("col") * 32 + Math.round(this.get("horizontalOffset") * 32 / 2),
-                this.get("row") * 32 + Math.round(this.get("verticalOffset") * 32 / 2)
-            );
         }
 
     }, {
@@ -215,18 +207,6 @@ YUI.add("tile", function (Y) {
             alive: {
                 validator: Y.Lang.isBoolean,
                 value: true
-            },
-
-            drawPriority: {
-                validator: Y.Lang.isNumber,
-                value: 0
-            },
-
-            drawOrder: {
-                readOnly: true,
-                getter: function () {
-                    return this.get("row") + this.get("verticalOffset") + this.get("drawPriority");
-                }
             }
 
         },
@@ -238,6 +218,6 @@ YUI.add("tile", function (Y) {
 
     });
 
-    Y.namespace("Tile").Tile = Tile;
+    Y.namespace("Tile").Base = Base;
 
 }, "0", { requires: ["base-build", "collection"] });

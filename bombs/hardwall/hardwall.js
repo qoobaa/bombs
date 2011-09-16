@@ -1,12 +1,8 @@
-YUI.add("hardwall", function (Y) {
+YUI.add("bombs-hardwall", function (Y) {
 
-    var HardWall = Y.Base.create("hardwall", Y.Tile.Tile, [], {
+    var HardWall = Y.Base.create("hardwall", Y.Tile.Base, [], {
 
         initializer: function () {
-            this._sprite = new Y.Tile.Sprite({
-                playing: false,
-                image: "images/hardwall.png"
-            });
             this.on("touch", this._onTouch);
             this.on("aliveChange", this._onAliveChange);
         },
@@ -22,6 +18,6 @@ YUI.add("hardwall", function (Y) {
 
     });
 
-    Y.namespace("Tile").HardWall = HardWall;
+    Y.namespace("Bombs").HardWall = HardWall;
 
-}, "0", { requires: ["base-build", "tile", "sprite"] });
+}, "0", { requires: ["base-build", "tile-base"] });

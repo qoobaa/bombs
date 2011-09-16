@@ -1,4 +1,4 @@
-YUI.add("board", function (Y) {
+YUI.add("bombs-board", function (Y) {
 
     var Board = Y.Base.create("board", Y.Base, [Y.ArrayList], {
 
@@ -30,9 +30,9 @@ YUI.add("board", function (Y) {
         _onTileHorizontalOffsetChange: function (event) {
             var tile = event.target;
 
-            if (event.newVal > 0 && tile.get("direction") === Y.Tile.Tile.RIGHT) {
+            if (event.newVal > 0 && tile.get("direction") === Y.Tile.Base.RIGHT) {
                 Y.Array.invoke(this._getTiles(tile.get("col") + 1, tile.get("row")), "fire", "touch", { originalEvent: event, source: tile });
-            } else if (event.newVal < 0 && tile.get("direction") === Y.Tile.Tile.LEFT) {
+            } else if (event.newVal < 0 && tile.get("direction") === Y.Tile.Base.LEFT) {
                 Y.Array.invoke(this._getTiles(tile.get("col") - 1, tile.get("row")), "fire", "touch", { originalEvent: event, source: tile });
             }
         },
@@ -40,9 +40,9 @@ YUI.add("board", function (Y) {
         _onTileVerticalOffsetChange: function (event) {
             var tile = event.target;
 
-            if (event.newVal > 0 && tile.get("direction") === Y.Tile.Tile.DOWN) {
+            if (event.newVal > 0 && tile.get("direction") === Y.Tile.Base.DOWN) {
                 Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row") + 1), "fire", "touch", { originalEvent: event, source: tile });
-            } else if (event.newVal < 0 && tile.get("direction") === Y.Tile.Tile.UP) {
+            } else if (event.newVal < 0 && tile.get("direction") === Y.Tile.Base.UP) {
                 Y.Array.invoke(this._getTiles(tile.get("col"), tile.get("row") - 1), "fire", "touch", { originalEvent: event, source: tile });
             }
         },
@@ -58,14 +58,14 @@ YUI.add("board", function (Y) {
         _onPlayerBombsChange: function (event) {
             var player = event.target,
                 otherBomb = Y.Array.find(this._getTiles(player.get("col"), player.get("row")), function (tile) {
-                    return tile instanceof Y.Tile.Bomb;
+                    return Y.instanceOf(tile, Y.Bombs.Bomb);
                 });
 
             if (event.prevVal > event.newVal) {
                 if (otherBomb) {
                     event.preventDefault();
                 } else {
-                    this.add(new Y.Tile.Bomb({ col: player.get("col"), row: player.get("row"), player: player }));
+                    this.add(new Y.Bombs.Bomb({ col: player.get("col"), row: player.get("row"), player: player }));
                 }
             }
         },
@@ -90,22 +90,22 @@ YUI.add("board", function (Y) {
         _bonus: function (col, row) {
             switch (Math.round(Math.random() * 10)) {
             case 0:
-                this.add(new Y.Tile.BonusKick({ col: col, row: row }));
+                this.add(new Y.Bombs.BonusKick({ col: col, row: row }));
                 break;
             case 1:
-                this.add(new Y.Tile.BonusPower({ col: col, row: row }));
+                this.add(new Y.Bombs.BonusPower({ col: col, row: row }));
                 break;
             case 2:
-                this.add(new Y.Tile.BonusSpeed({ col: col, row: row }));
+                this.add(new Y.Bombs.BonusSpeed({ col: col, row: row }));
                 break;
             case 3:
-                this.add(new Y.Tile.BonusBomb({ col: col, row: row }));
+                this.add(new Y.Bombs.BonusBomb({ col: col, row: row }));
                 break;
             }
         },
 
         _explode: function (col, row, power, direction) {
-            var explosion = new Y.Tile.Explosion({ col: col, row: row, explosionDirection: direction });
+            var explosion = new Y.Bombs.Explosion({ col: col, row: row, explosionDirection: direction });
 
             if (power <= 0) {
                 return false;
@@ -121,23 +121,23 @@ YUI.add("board", function (Y) {
 
 
             switch (direction) {
-            case Y.Tile.Tile.UP:
-                explosion.set("explosionEnd", !this._explode(col, row - 1, power - 1, Y.Tile.Tile.UP));
+            case Y.Tile.Base.UP:
+                explosion.set("explosionEnd", !this._explode(col, row - 1, power - 1, Y.Tile.Base.UP));
                 break;
-            case Y.Tile.Tile.RIGHT:
-                explosion.set("explosionEnd", !this._explode(col + 1, row, power - 1, Y.Tile.Tile.RIGHT));
+            case Y.Tile.Base.RIGHT:
+                explosion.set("explosionEnd", !this._explode(col + 1, row, power - 1, Y.Tile.Base.RIGHT));
                 break;
-            case Y.Tile.Tile.DOWN:
-                explosion.set("explosionEnd", !this._explode(col, row + 1, power - 1, Y.Tile.Tile.DOWN));
+            case Y.Tile.Base.DOWN:
+                explosion.set("explosionEnd", !this._explode(col, row + 1, power - 1, Y.Tile.Base.DOWN));
                 break;
-            case Y.Tile.Tile.LEFT:
-                explosion.set("explosionEnd", !this._explode(col - 1, row, power - 1, Y.Tile.Tile.LEFT));
+            case Y.Tile.Base.LEFT:
+                explosion.set("explosionEnd", !this._explode(col - 1, row, power - 1, Y.Tile.Base.LEFT));
                 break;
             default:
-                this._explode(col, row - 1, power - 1, Y.Tile.Tile.UP);
-                this._explode(col + 1, row, power - 1, Y.Tile.Tile.RIGHT);
-                this._explode(col, row + 1, power - 1, Y.Tile.Tile.DOWN);
-                this._explode(col - 1, row, power - 1, Y.Tile.Tile.LEFT);
+                this._explode(col,     row - 1, power - 1, Y.Tile.Base.UP);
+                this._explode(col + 1, row,     power - 1, Y.Tile.Base.RIGHT);
+                this._explode(col,     row + 1, power - 1, Y.Tile.Base.DOWN);
+                this._explode(col - 1, row,     power - 1, Y.Tile.Base.LEFT);
                 break;
             }
 
@@ -150,16 +150,16 @@ YUI.add("board", function (Y) {
             var col, row;
 
             for (col = 0; col < this.get("width"); col++) {
-                this.add(new Y.Tile.HardWall({ row: 0, col: col }));
-                this.add(new Y.Tile.HardWall({ row: this.get("height") - 1, col: col }));
+                this.add(new Y.Bombs.HardWall({ row: 0, col: col }));
+                this.add(new Y.Bombs.HardWall({ row: this.get("height") - 1, col: col }));
             }
             for (row = 1; row < this.get("height") - 1; row++) {
-                this.add(new Y.Tile.HardWall({ row: row, col: 0 }));
-                this.add(new Y.Tile.HardWall({ row: row, col: this.get("width") - 1 }));
+                this.add(new Y.Bombs.HardWall({ row: row, col: 0 }));
+                this.add(new Y.Bombs.HardWall({ row: row, col: this.get("width") - 1 }));
             }
             for (col = 3; col < this.get("width") - 3; col++) {
                 for (row = 3; row < this.get("height") - 3; row++) {
-                    this.add(new Y.Tile.SoftWall({ row: row, col: col }));
+                    this.add(new Y.Bombs.SoftWall({ row: row, col: col }));
                 }
             }
         },
@@ -185,12 +185,6 @@ YUI.add("board", function (Y) {
 
         act: function () {
             Y.Array.invoke(this._items.slice(0), "act");
-        },
-
-        draw: function (context) {
-            Y.Array.invoke(this._items.sort(function (a, b) {
-                return a.get("drawOrder") - b.get("drawOrder");
-            }), "draw", context);
         }
 
     }, {
@@ -220,6 +214,6 @@ YUI.add("board", function (Y) {
 
     });
 
-    Y.namespace("Tile").Board = Board;
+    Y.namespace("Bombs").Board = Board;
 
-}, "0", { requires: ["base-build", "arraylist", "collection", "hardwall", "explosion", "softwall", "bonusbomb", "bonuspower", "bonuskick", "bonusspeed"] });
+}, "0", { requires: ["base-build", "arraylist", "collection", "bombs-hardwall", "bombs-explosion", "bombs-softwall", "bombs-bonusbomb", "bombs-bonuspower", "bombs-bonuskick", "bombs-bonusspeed", "bombs-bomb"] });

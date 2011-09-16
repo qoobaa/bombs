@@ -7,6 +7,10 @@ window.YUI_config = {
                 "tile-base": {
                     path: "base/base.js",
                     requires: ["base-build", "collection"]
+                },
+                "tile-board": {
+                    path: "board/board.js",
+                    requires: ["base-build", "arraylist", "collection"]
                 }
             }
         },

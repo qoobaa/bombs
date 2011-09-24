@@ -1,0 +1,300 @@
+body {
+    width: 640px;
+    margin: auto;
+}
+
+.game > * {
+    width: 32px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+.animating {
+    -moz-animation-duration: 500ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: step-start;
+    -o-animation-duration: 500ms;
+    -o-animation-iteration-count: infinite;
+    -o-animation-timing-function: step-start;
+    -webkit-animation-duration: 500ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: step-start;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: step-start;
+}
+
+/* PLAYERS */
+
+.player {
+    height: 48px;
+    margin-top: -16px;
+}
+
+.player.animating {
+    -moz-animation-duration: 750ms;
+    -moz-animation-name: player;
+    -o-animation-duration: 750ms;
+    -o-animation-name: player;
+    -webkit-animation-duration: 750ms;
+    -webkit-animation-name: player;
+    animation-duration: 750ms;
+    animation-name: player;
+}
+
+.player.first.up {
+    background-image: asset-data-url("player1-up.png");
+}
+
+.player.first.right {
+    background-image: asset-data-url("player1-right.png");
+}
+
+.player.first,
+.player.first.down {
+    background-image: asset-data-url("player1-down.png");
+}
+
+.player.first.left {
+    background-image: asset-data-url("player1-left.png");
+}
+
+.player.second.up {
+    background-image: asset-data-url("player2-up.png");
+}
+
+.player.second.right {
+    background-image: asset-data-url("player2-right.png");
+}
+
+.player.second,
+.player.second.down {
+    background-image: asset-data-url("player2-down.png");
+}
+
+.player.second.left {
+    background-image: asset-data-url("player2-left.png");
+}
+
+@-moz-keyframes player {
+       0.0% { background-position:    0px 0px; }
+      12.5% { background-position:  -32px 0px; }
+      25.0% { background-position:  -64px 0px; }
+      37.5% { background-position:  -96px 0px; }
+      50.0% { background-position: -128px 0px; }
+      62.5% { background-position: -160px 0px; }
+      75.0% { background-position: -192px 0px; }
+      87.5% { background-position: -224px 0px; }
+     100.0% { background-position:    0px 0px; }
+}
+
+@-o-keyframes player {
+       0.0% { background-position:    0px 0px; }
+      12.5% { background-position:  -32px 0px; }
+      25.0% { background-position:  -64px 0px; }
+      37.5% { background-position:  -96px 0px; }
+      50.0% { background-position: -128px 0px; }
+      62.5% { background-position: -160px 0px; }
+      75.0% { background-position: -192px 0px; }
+      87.5% { background-position: -224px 0px; }
+     100.0% { background-position:    0px 0px; }
+}
+
+@-webkit-keyframes player {
+       0.0% { background-position:    0px 0px; }
+      12.5% { background-position:  -32px 0px; }
+      25.0% { background-position:  -64px 0px; }
+      37.5% { background-position:  -96px 0px; }
+      50.0% { background-position: -128px 0px; }
+      62.5% { background-position: -160px 0px; }
+      75.0% { background-position: -192px 0px; }
+      87.5% { background-position: -224px 0px; }
+     100.0% { background-position:    0px 0px; }
+}
+
+@keyframes player {
+       0.0% { background-position:    0px 0px; }
+      12.5% { background-position:  -32px 0px; }
+      25.0% { background-position:  -64px 0px; }
+      37.5% { background-position:  -96px 0px; }
+      50.0% { background-position: -128px 0px; }
+      62.5% { background-position: -160px 0px; }
+      75.0% { background-position: -192px 0px; }
+      87.5% { background-position: -224px 0px; }
+     100.0% { background-position:    0px 0px; }
+}
+
+/* BOMB */
+
+.bomb {
+    background-image: asset-data-url("bomb.png");
+}
+
+.bomb.animating {
+    -moz-animation-name: bomb;
+    -moz-animation-duration: 400ms;
+    -o-animation-name: bomb;
+    -o-animation-duration: 400ms;
+    -webkit-animation-name: bomb;
+    -webkit-animation-duration: 400ms;
+    animation-name: bomb;
+    animation-duration: 400ms;
+}
+
+@-moz-keyframes bomb {
+       0.0% { background-position:   0px 0px; }
+      25.0% { background-position: -32px 0px; }
+      50.0% { background-position: -64px 0px; }
+      75.0% { background-position: -96px 0px; }
+     100.0% { background-position:   0px 0px; }
+}
+
+@-o-keyframes bomb {
+       0.0% { background-position:   0px 0px; }
+      25.0% { background-position: -32px 0px; }
+      50.0% { background-position: -64px 0px; }
+      75.0% { background-position: -96px 0px; }
+     100.0% { background-position:   0px 0px; }
+}
+
+@-webkit-keyframes bomb {
+       0.0% { background-position:   0px 0px; }
+      25.0% { background-position: -32px 0px; }
+      50.0% { background-position: -64px 0px; }
+      75.0% { background-position: -96px 0px; }
+     100.0% { background-position:   0px 0px; }
+}
+
+@keyframes bomb {
+       0.0% { background-position:   0px 0px; }
+      25.0% { background-position: -32px 0px; }
+      50.0% { background-position: -64px 0px; }
+      75.0% { background-position: -96px 0px; }
+     100.0% { background-position:   0px 0px; }
+}
+
+/* SOFTWALL */
+
+.softwall {
+    background-image: asset-data-url("softwall.png");
+}
+
+.softwall.animating {
+    background-position: -192px 0;
+    -moz-animation-name: softwall;
+    -moz-animation-iteration-count: 1;
+    -o-animation-name: softwall;
+    -o-animation-iteration-count: 1;
+    -webkit-animation-name: softwall;
+    -webkit-animation-iteration-count: 1;
+    animation-name: softwall;
+    animation-iteration-count: 1;
+}
+
+@-moz-keyframes softwall {
+      0.0% { background-position: -32px 0px; }
+     20.0% { background-position: -64px 0px; }
+     40.0% { background-position: -96px 0px; }
+     60.0% { background-position: -128px 0px; }
+     80.0% { background-position: -160px 0px; }
+    100.0% { background-position: -192px 0px; }
+}
+
+/* HARDWALL */
+
+.hardwall {
+    background-image: asset-data-url("hardwall.png");
+}
+
+/* EXPLOSION */
+
+.explosion {
+    background-image: asset-data-url("explosion.png");
+}
+
+.explosion.vertical {
+    background-image: asset-data-url("explosion-vertical.png");
+}
+
+.explosion.horizontal {
+    background-image: asset-data-url("explosion-horizontal.png");
+}
+
+.explosion.up {
+    background-image: asset-data-url("explosion-up.png");
+}
+
+.explosion.right {
+    background-image: asset-data-url("explosion-right.png");
+}
+
+.explosion.down {
+    background-image: asset-data-url("explosion-down.png");
+}
+
+.explosion.left {
+    background-image: asset-data-url("explosion-left.png");
+}
+
+.explosion.animating {
+    background-position: -128px 0;
+    -moz-animation-name: explosion;
+    -moz-animation-iteration-count: 1;
+    -o-animation-name: explosion;
+    -o-animation-iteration-count: 1;
+    -webkit-animation-name: explosion;
+    -webkit-animation-iteration-count: 1;
+    animation-name: explosion;
+    animation-iteration-count: 1;
+}
+
+@-moz-keyframes explosion {
+      0% { background-position:    0px 0px; }
+     25% { background-position:  -32px 0px; }
+     50% { background-position:  -64px 0px; }
+     75% { background-position:  -96px 0px; }
+    100% { background-position: -128px 0px; }
+}
+
+@-o-keyframes explosion {
+      0% { background-position:    0px 0px; }
+     25% { background-position:  -32px 0px; }
+     50% { background-position:  -64px 0px; }
+     75% { background-position:  -96px 0px; }
+    100% { background-position: -128px 0px; }
+}
+
+@-webkit-keyframes explosion {
+      0% { background-position:    0px 0px; }
+     25% { background-position:  -32px 0px; }
+     50% { background-position:  -64px 0px; }
+     75% { background-position:  -96px 0px; }
+    100% { background-position: -128px 0px; }
+}
+
+@keyframes explosion {
+      0% { background-position:    0px 0px; }
+     25% { background-position:  -32px 0px; }
+     50% { background-position:  -64px 0px; }
+     75% { background-position:  -96px 0px; }
+    100% { background-position: -128px 0px; }
+}
+
+/* BONUS */
+
+.bonus.bomb {
+    background-image: asset-data-url("bonusbomb.png");
+}
+
+.bonus.speed {
+    background-image: asset-data-url("bonusspeed.png");
+}
+
+.bonus.kick {
+    background-image: asset-data-url("bonuskick.png");
+}
+
+.bonus.power {
+    background-image: asset-data-url("bonuspower.png");
+}

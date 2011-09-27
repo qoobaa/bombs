@@ -3,7 +3,12 @@ body {
     margin: auto;
 }
 
-.game > * {
+.game {
+    position: relative;
+}
+
+.tile {
+    position: absolute;
     width: 32px;
     height: 32px;
     background-repeat: no-repeat;

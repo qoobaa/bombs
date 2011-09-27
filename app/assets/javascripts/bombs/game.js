@@ -1,6 +1,6 @@
 YUI.add("bombs-game", function (Y) {
 
-    var Game = Y.Base.create("game", Y.Widget, [], {
+    var Game = Y.Base.create("game", Y.Widget, [Y.WidgetParent], {
 
         CONTENT_TEMPLATE: null,
 
@@ -13,14 +13,7 @@ YUI.add("bombs-game", function (Y) {
         },
 
         renderUI: function () {
-            this._renderCanvas();
-        },
-
-        _renderCanvas: function () {
-            this._canvasNode = this.get("contentBox").appendChild("<canvas>");
-            this._canvasNode.setAttrs({ width: this.get("width"), height: this.get("height") });
-            this._canvasNode.setStyle("backgroundColor", "#9ba376");
-            this._context = Y.Node.getDOMNode(this._canvasNode).getContext("2d");
+            this.add(new Y.Bombs.Tile({ xy: [100, 100] }));
         },
 
         bindUI: function () {
@@ -209,4 +202,4 @@ YUI.add("bombs-game", function (Y) {
 
     Y.namespace("Bombs").Game = Game;
 
-}, "0", { requires: ["widget", "base-build", "bombs-player", "bombs-board"] });
+}, "0", { requires: ["widget", "widget-parent", "bombs-tile", "base-build", "bombs-player", "bombs-board"] });

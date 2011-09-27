@@ -180,25 +180,31 @@ body {
     background-image: asset-data-url("softwall.png");
 }
 
-.softwall.animating {
-    background-position: -192px 0;
-    -moz-animation-name: softwall;
+/* EXPLODINGWALL */
+
+.explodingwall {
+    background-image: asset-data-url("explodingwall.png");
+}
+
+.explodingwall.animating {
+    background-position: -160px 0;
+    -moz-animation-name: explodingwall;
     -moz-animation-iteration-count: 1;
-    -o-animation-name: softwall;
+    -o-animation-name: explodingwall;
     -o-animation-iteration-count: 1;
-    -webkit-animation-name: softwall;
+    -webkit-animation-name: explodingwall;
     -webkit-animation-iteration-count: 1;
-    animation-name: softwall;
+    animation-name: explodingwall;
     animation-iteration-count: 1;
 }
 
-@-moz-keyframes softwall {
-      0.0% { background-position: -32px 0px; }
-     20.0% { background-position: -64px 0px; }
-     40.0% { background-position: -96px 0px; }
-     60.0% { background-position: -128px 0px; }
-     80.0% { background-position: -160px 0px; }
-    100.0% { background-position: -192px 0px; }
+@-moz-keyframes explodingwall {
+      0.0% { background-position:    0px 0px; }
+     20.0% { background-position:  -32px 0px; }
+     40.0% { background-position:  -64px 0px; }
+     60.0% { background-position:  -96px 0px; }
+     80.0% { background-position: -128px 0px; }
+    100.0% { background-position: -160px 0px; }
 }
 
 /* HARDWALL */

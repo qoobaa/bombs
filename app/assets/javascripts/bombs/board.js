@@ -6,6 +6,7 @@ YUI.add("bombs-board", function (Y) {
             this.on("player:bombsChange", this._onPlayerBombsChange);
             this.after("bomb:aliveChange", this._afterBombAliveChange);
             this.after("softwall:aliveChange", this._afterSoftWallAliveChange);
+            this.after("explodingwall:aliveChange", this._afterExplodingWallAliveChange);
 
             this._createBorders();
         },
@@ -38,7 +39,15 @@ YUI.add("bombs-board", function (Y) {
             var softWall = event.target;
 
             if (!event.newVal) {
-                this._bonus(softWall.get("col"), softWall.get("row"));
+                this.add(new Y.Bombs.ExplodingWall({ col: softWall.get("col"), row: softWall.get("row") }));
+            }
+        },
+
+        _afterExplodingWallAliveChange: function (event) {
+            var explodingWall = event.target;
+
+            if (!event.newVal) {
+                this._bonus(explodingWall.get("col"), explodingWall.get("row"));
             }
         },
 
@@ -137,4 +146,4 @@ YUI.add("bombs-board", function (Y) {
 
     Y.namespace("Bombs").Board = Board;
 
-}, "0", { requires: ["base-build", "tile-board", "bombs-hardwall", "bombs-explosion", "bombs-softwall", "bombs-bonusbomb", "bombs-bonuspower", "bombs-bonuskick", "bombs-bonusspeed", "bombs-bomb"] });
+}, "0", { requires: ["base-build", "tile-board", "bombs-hardwall", "bombs-explosion", "bombs-softwall", "bombs-explodingwall", "bombs-bonusbomb", "bombs-bonuspower", "bombs-bonuskick", "bombs-bonusspeed", "bombs-bomb"] });

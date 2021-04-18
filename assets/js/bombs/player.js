@@ -6,7 +6,7 @@ YUI.add("player", function (Y) {
       this._sprite = new Y.Tile.Sprite({
         frames: 8,
         playing: false,
-        image: "/assets/images/player" + this.get("number") + ".png",
+        image: "assets/images/player" + this.get("number") + ".png",
         speed: 0.5,
         frameHeight: 48,
         row: 2

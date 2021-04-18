@@ -5,7 +5,7 @@ YUI.add("bonusspeed", function (Y) {
     initializer: function () {
       this._sprite = new Y.Tile.Sprite({
         playing: false,
-        image: "/assets/images/bonusspeed.png"
+        image: "assets/images/bonusspeed.png"
       });
       this.on("engage", this._onEngage);
     },

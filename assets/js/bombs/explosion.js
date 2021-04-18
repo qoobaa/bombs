@@ -6,7 +6,7 @@ YUI.add("explosion", function (Y) {
       this._sprite = new Y.Tile.Sprite({
         playing: true,
         looping: false,
-        image: "/assets/images/explosion.png",
+        image: "assets/images/explosion.png",
         frames: 4,
         speed: 0.25
       });

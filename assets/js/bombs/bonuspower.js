@@ -5,7 +5,7 @@ YUI.add("bonuspower", function (Y) {
     initializer: function () {
       this._sprite = new Y.Tile.Sprite({
         playing: false,
-        image: "/assets/images/bonuspower.png"
+        image: "assets/images/bonuspower.png"
       });
       this.on("engage", this._onEngage);
     },

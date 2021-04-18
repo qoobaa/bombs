@@ -5,7 +5,7 @@ YUI.add("bomb", function (Y) {
     initializer: function () {
       this._sprite = new Y.Tile.Sprite({
         playing: true,
-        image: "/assets/images/bomb.png",
+        image: "assets/images/bomb.png",
         frames: 4,
         speed: 0.5
       });

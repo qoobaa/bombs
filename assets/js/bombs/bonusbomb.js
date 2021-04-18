@@ -5,7 +5,7 @@ YUI.add("bonusbomb", function (Y) {
     initializer: function () {
       this._sprite = new Y.Tile.Sprite({
         playing: false,
-        image: "/assets/images/bonusbomb.png"
+        image: "assets/images/bonusbomb.png"
       });
       this.on("engage", this._onEngage);
     },

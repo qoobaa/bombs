@@ -8,7 +8,7 @@ YUI.add("softwall", function (Y) {
         looping: false,
         frames: 6,
         speed: 0.5,
-        image: "/assets/images/softwall.png"
+        image: "assets/images/softwall.png"
       });
       this.on("touch", this._onTouch);
       this.on("aliveChange", this._onAliveChange);
